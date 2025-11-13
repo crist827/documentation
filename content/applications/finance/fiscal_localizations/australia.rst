@@ -26,15 +26,16 @@ Modules
        selected.
    * - :guilabel:`Australia - Payroll`
      - `l10n_au_hr_payroll`
-     - The base :ref:`payroll <payroll/l10n_au/payroll>` module for the Australian localization.
+     - The base :doc:`payroll <../../hr/payroll/payroll_localizations/australia>` module for the
+       Australian localization.
    * - :guilabel:`Australia - Payroll with Accounting`
      - `l10n_au_hr_payroll_account`
      - Contains the necessary accounting data for the Australian payroll rules. It is installed
        automatically when the :ref:`Payroll Entries option <payroll-accounting>` is enabled.
    * - :guilabel:`Employment Hero Payroll`
      - `l10n_employment_hero`
-     - Synchronizes all pay runs from :ref:`Employment Hero <payroll/l10n_au/employment-hero>`
-       with Odoo's journal entries.
+     - Synchronizes all pay runs from :ref:`Employment Hero <employment_hero/configuration>` with
+       Odoo's journal entries.
 
 .. note::
    It is not possible for users of the Australian fiscal localization to deactivate :doc:`two-factor
@@ -177,7 +178,8 @@ default.
 Deferred GST
 ~~~~~~~~~~~~
 
-Odoo allows companies under the `Deferred Goods and Services Tax (DGST) scheme <https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/in-detail/rules-for-specific-transactions/international-transactions/deferred-gst?=redirected_deferredGSTscheme>`_
+Odoo allows companies under the `Deferred Goods and Services Tax (DGST) scheme
+<https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/in-detail/rules-for-specific-transactions/international-transactions/deferred-gst?=redirected_deferredGSTscheme>`_
 to automate their deferred GST flows.
 
 Configuration
@@ -277,7 +279,7 @@ taxes are accurately captured and reflected within the report.
 
 The module incorporates built-in rules that facilitate the automatic calculation of taxes for types
 W1 to W5. For a detailed walkthrough and more information on the calculation process for these
-taxes, refer to the :ref:`Payroll section <payroll/l10n_au/payroll>`.
+taxes, refer to the :ref:`Payroll section <payroll/au_config>`.
 
 Closing
 *******
