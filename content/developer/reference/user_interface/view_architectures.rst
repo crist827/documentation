@@ -1474,6 +1474,57 @@ The `field` element can have the following attributes:
                  <field name="tax_id"/>
              </list>
 
+.. _reference/view_architectures/list/column:
+
+`column`: group multiple fields into a stacked cell
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: xml
+
+   <list>
+       <column string="LABEL">
+           <field name="FIELD_NAME_1"/>
+           <field name="FIELD_NAME_2"/>
+       </column>
+   </list>
+
+The `column` element groups several fields into a single table cell, displaying them on
+stacked lines.
+
+The `column` element can have the following attributes:
+
+.. attribute:: string
+   :noindex:
+
+   The label displayed in the column header. When omitted, the label of the first stacked
+   field is used instead.
+
+   :requirement: Optional
+   :type: str
+
+.. include:: view_architectures/generic_attribute_column_invisible.rst
+
+Each child ``<field>`` element supports the same attributes as a regular
+:ref:`list field <reference/view_architectures/list/field>`.
+
+.. admonition:: Possible structure and representation of its rendering
+
+   .. list-table::
+      :class: o-showcase-table
+
+      * - .. image:: view_architectures/list_column.svg
+             :align: center
+
+      * - .. code-block:: xml
+
+             <list>
+                 <field name="name"/>
+                 <column string="Contact">
+                     <field name="partner_id"/>
+                     <field name="email"/>
+                 </column>
+             </list>
+
 .. _reference/view_architectures/list/button:
 
 `button`: display action buttons
