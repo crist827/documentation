@@ -174,10 +174,10 @@ Sometimes, your design might require creating one or several custom shapes.
 Firstly, you need to create an SVG file for your shape.
 
 .. code-block:: xml
-   :caption: ``/website_airproof/static/shapes/hexagons/01.svg``
+   :caption: ``/website_airproof/static/shapes/waves/01.svg``
 
-   <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="86" height="100">
-      <polygon points="0 25, 43 0, 86 25, 86 75, 43 100, 0 75" style="fill: #3AADAA;" />
+   <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1309 581">
+      <path style="fill: #3AADAA;" d="..." />
    </svg>
 
 .. important::
@@ -194,10 +194,10 @@ Declare your shape file.
 .. code-block:: xml
    :caption: ``/website_airproof/data/shapes.xml``
 
-   <record id="shape_hexagon_01" model="ir.attachment">
-      <field name="name">01.svg</field>
-      <field name="datas" type="base64" file="website_airproof/static/shapes/hexagons/01.svg" />
-      <field name="url">/html_editor/shape/illustration/hexagons/01.svg</field>
+   <record id="shape_waves_01" model="ir.attachment">
+      <field name="name">waves_01.svg</field>
+      <field name="datas" type="base64" file="website_airproof/static/shapes/waves/01.svg" />
+      <field name="url">/html_editor/shape/website_airproof/waves/01.svg</field>
       <field name="public" eval="True" />
    </record>
 
@@ -213,8 +213,8 @@ Declare your shape file.
    * - datas
      - Path to the shape
    * - url
-     - The location of your shape in the web editor. The file is automatically duplicated in
-       `/html_editor/shape/illustration` by the Website Builder.
+     - The location of your shape in the HTML Editor. The file is automatically duplicated in
+       `/html_editor/shape/website_airproof` by the Website Builder.
    * - public
      - Makes the shape available for later editing.
 
@@ -229,14 +229,11 @@ Define the styles of your shape.
    :caption: ``/website_airproof/static/src/scss/primary_variables.scss``
 
    $o-bg-shapes: map-merge($o-bg-shapes,
-       (
-           'illustration': map-merge(
-               map-get($o-bg-shapes, 'illustration') or (),
-               (
-                   'hexagons/01': ('position': center center, 'size': auto 100%, 'colors': (1), 'repeat-x': true, 'repeat-y': true),
-               ),
-           ),
-       )
+      (
+         'website_airproof': (
+               'hexagons/01': ('position': center center, 'size': auto 100%, 'colors': (1), 'repeat-x': true, 'repeat-y': true),
+         ),
+      )
    );
 
 .. list-table::
@@ -247,7 +244,7 @@ Define the styles of your shape.
    * - Key
      - Description
    * - File location
-     - `hexagons/01` corresponds to the location of your file in the `shapes` folder.
+     - `waves/01` corresponds to the location of your file in the `shapes` folder.
    * - position
      - Defines the position of your shape.
    * - size
@@ -315,8 +312,10 @@ In your XML pages, you can use your shape in the same way as the others.
 
 .. code-block:: xml
 
-   <section class="..." data-oe-shape-data="{'shape': 'illustration/airproof/01', 'colors': {'c4': '#8595A2', 'c5': 'rgba(0, 255, 0)'}}">
-      <div class="o_we_shape o_illustration_airproof_01" />
+   <section class="..." data-oe-shape-data="{'shape': 'website_airproof/waves/01', 'colors': {'c1': '#BBE1FA'}, 'flip': ['x']}">
+      <div
+         class="o_we_shape o_website_airproof_waves_01 o_we_flip_x"
+         style="background-image: url('/html_editor/shape/website_airproof%2Fwaves%2F01.svg?c1=%23BBE1FA'); background-position: 100% 100%;" />
       <div class="container">
          <!-- Content -->
       </div>
