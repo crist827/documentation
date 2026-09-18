@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Protocolo de atractivo · Cristian Ariel Llanos</title>
+<style>
+  @page { size: A4; margin: 14mm 0 12mm; }
+  @page :first { margin: 0 0 12mm; }
+  :root {
+    --ink:#16181D; --body:#4A4D55; --muted:#7C7F86;
+    --rule:#D5CFC1; --hair:#EDEAE2; --paper:#F5F4ED;
+    --crimson:#B02E2E; --green:#2E6F5D; --navy:#212F4E;
+    --hero-1:#22304F; --hero-2:#463463; --hero-3:#783050;
+    --hero-ink:#F6F2EA; --hero-lead:#E6E1E8; --hero-mute:#C6BFCE;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin:0; font-family:"Liberation Serif", Georgia, "Times New Roman", serif;
+    color:var(--body); font-size:11pt; line-height:1.55;
+    -webkit-print-color-adjust:exact; print-color-adjust:exact;
+  }
+  .wrap { padding:0 14mm; }
+
+  /* ---------- hero ---------- */
+  .hero {
+    background:linear-gradient(135deg, var(--hero-1) 0%, var(--hero-2) 50%, var(--hero-3) 100%);
+    color:var(--hero-ink); padding:26mm 14mm 13mm; margin-bottom:12mm;
+  }
+  .eyebrow { font-size:9pt; letter-spacing:.22em; text-transform:uppercase; color:var(--hero-mute); margin:0 0 7mm; }
+  .hero h1 { font-size:27pt; line-height:1.18; font-weight:bold; margin:0 0 6mm; color:var(--hero-ink); }
+  .hero .lead { font-size:11.5pt; line-height:1.6; color:var(--hero-lead); max-width:74%; margin:0; }
+  .kpis { display:grid; grid-template-columns:repeat(4,1fr); gap:6mm;
+          margin-top:11mm; padding-top:5mm; border-top:1px solid rgba(255,255,255,.24); }
+  .kpis .k { font-size:8.5pt; letter-spacing:.16em; text-transform:uppercase; color:var(--hero-mute); margin-bottom:2mm; }
+  .kpis .v { font-size:15pt; font-weight:bold; color:var(--hero-ink); margin-bottom:1.5mm; }
+  .kpis .n { font-size:8.5pt; color:var(--hero-mute); line-height:1.4; }
+
+  /* ---------- structure ---------- */
+  h2 { break-after:avoid; font-size:15pt; font-weight:bold; color:var(--ink); margin:11mm 0 0;
+       padding-bottom:2.5mm; border-bottom:1px solid var(--rule); }
+  h2 + p, h2 + .prose { margin-top:5mm; }
+  h3 { break-after:avoid; font-size:10.5pt; font-weight:bold; color:var(--ink); margin:7mm 0 2mm; }
+  p { margin:0 0 3.5mm; }
+  .prose { max-width:79%; }
+  .newpage { break-before:page; margin-top:0; }
+  .caption { font-size:9pt; font-style:italic; color:var(--muted); line-height:1.45; margin-top:2.5mm; margin-bottom:2mm; }
+  strong { color:var(--ink); }
+  .cols { break-inside:avoid; display:grid; grid-template-columns:1fr 1fr; gap:9mm; margin-top:5mm; }
+  .cols.wide-left { grid-template-columns:1.05fr 1fr; }
+  .cols.may-break { break-inside:auto; }
+
+  /* ---------- callouts ---------- */
+  .box { background:var(--paper); border-left:3.5pt solid var(--crimson);
+         padding:4mm 5mm 2.5mm; margin:5mm 0 4mm; break-inside:avoid; }
+  .box.green { border-left-color:var(--green); }
+  .box.navy  { border-left-color:var(--navy); }
+  .box .t { font-size:10.5pt; font-weight:bold; color:var(--ink); margin:0 0 2.5mm; }
+  .box p, .box li { font-size:10pt; line-height:1.55; }
+  .box p:last-child { margin-bottom:1.5mm; }
+
+  /* ---------- tables ---------- */
+  table { width:100%; border-collapse:collapse; margin:5mm 0 2mm; }
+  th { font-size:8pt; letter-spacing:.14em; text-transform:uppercase; color:var(--muted);
+       font-weight:normal; text-align:left; padding:0 7pt 3mm 0; border-bottom:1px solid var(--rule); }
+  td { font-size:9.5pt; color:var(--ink); line-height:1.45; padding:2.6mm 7pt 2.6mm 0;
+       border-bottom:1px solid var(--hair); vertical-align:top; }
+  td.b { font-weight:bold; }
+  td.m { color:var(--muted); }
+  tr { break-inside:avoid; }
+  thead { break-inside:avoid; }
+  table.tight td { padding:2mm 7pt; }
+  th.r, td.r { text-align:right; }
+
+  /* ---------- lists ---------- */
+  ul { margin:3mm 0 4mm; padding-left:5mm; }
+  li { margin-bottom:2mm; line-height:1.55; }
+  ol { margin:3mm 0 4mm; padding-left:5.5mm; }
+  ol li { margin-bottom:2.5mm; }
+  .check { list-style:none; padding-left:0; }
+  .check li { position:relative; padding-left:6mm; font-size:10pt; margin-bottom:2.2mm; }
+  .check li::before { content:""; position:absolute; left:0; top:1.1mm;
+    width:3mm; height:3mm; border:1px solid #B9B3A4; background:#fff; }
+  .lede { font-size:11pt; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <p class="eyebrow">Protocolo complementario · Septiembre 2026 · Fuera del entrenamiento</p>
+  <h1>Protocolo de atractivo<br>Cristian Ariel Llanos</h1>
+  <p class="lead">Todo lo que no es gimnasio. El Plan v2 ya resuelve el cuerpo y la nutrición está con
+  tu nutricionista: acá no se toca ni una serie ni una caloría. Esto es lo otro — dientes, pelo, piel,
+  ropa, presencia — que pesa tanto o más, se ve en semanas y no depende de ninguna sesión.</p>
+  <div class="kpis">
+    <div><div class="k">Punto de partida</div><div class="v">81,2 kg</div><div class="n">178 cm · 27 % grasa</div></div>
+    <div><div class="k">La cara cambia</div><div class="v">&lt; 18 %</div><div class="n">de grasa corporal</div></div>
+    <div><div class="k">Se ve en</div><div class="v">3-12 sem.</div><div class="n">según la palanca</div></div>
+    <div><div class="k">Hábitos diarios</div><div class="v">7</div><div class="n">≈ 10 min por día</div></div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<h2>Dónde está el margen real</h2>
+<p class="prose">El entrenamiento te va a dar el cuerpo. Pero lo que la gente registra en los primeros
+tres segundos —y lo que se ve en una foto— viene de otro lado. Ordenado por impacto sobre esfuerzo:</p>
+
+<table>
+  <thead><tr><th style="width:7%">#</th><th style="width:31%">Palanca</th><th style="width:16%">Impacto</th><th style="width:22%">Esfuerzo</th><th>Cuándo se ve</th></tr></thead>
+  <tr><td class="m">1</td><td class="b">Dientes</td><td>Muy alto</td><td>Bajo</td><td>1-6 meses</td></tr>
+  <tr><td class="m">2</td><td class="b">Pelo: corte y línea frontal</td><td>Muy alto</td><td>Bajo / medio</td><td>3 semanas / 6-12 meses</td></tr>
+  <tr><td class="m">3</td><td class="b">Piel</td><td>Alto</td><td>Bajo, pero diario</td><td>8-12 semanas</td></tr>
+  <tr><td class="m">4</td><td class="b">Calce de la ropa</td><td>Muy alto</td><td>Medio</td><td>Inmediato</td></tr>
+  <tr><td class="m">5</td><td class="b">Sueño</td><td>Alto</td><td>Bajo</td><td>3-7 días</td></tr>
+  <tr><td class="m">6</td><td class="b">Grasa corporal → cara</td><td>Muy alto</td><td>Ya en curso</td><td>Abajo de 18 %</td></tr>
+  <tr><td class="m">7</td><td class="b">Postura y presencia</td><td>Alto</td><td>Medio, constante</td><td>4-8 semanas</td></tr>
+  <tr><td class="m">8</td><td class="b">Barba y cejas definidas</td><td>Medio-alto</td><td>Muy bajo</td><td>Inmediato</td></tr>
+  <tr><td class="m">9</td><td class="b">Olor</td><td>Medio-alto</td><td>Muy bajo</td><td>Inmediato</td></tr>
+  <tr><td class="m">10</td><td class="b">Manos y uñas</td><td>Medio</td><td>Muy bajo</td><td>1 semana</td></tr>
+</table>
+
+<div class="box">
+  <p class="t">Lo que dice esta tabla</p>
+  <p>Cinco de las diez primeras palancas no dependen del gimnasio y se resuelven en semanas, no en años.
+  Hoy estás poniendo el 100 % del esfuerzo en la más lenta de todas. El plan de entrenamiento está bien
+  y hay que sostenerlo doce semanas — pero mientras tanto hay diez cosas más que ya podrías tener resueltas.</p>
+</div>
+
+<h2>1 · Dientes — el mejor retorno que existe</h2>
+<p class="prose">Consistentemente el rasgo mejor puntuado en atractivo facial, y el más barato de arreglar.</p>
+<ul>
+  <li><strong>Limpieza profesional cada 6 meses.</strong> Agendá la primera esta semana.</li>
+  <li><strong>Hilo dental todos los días.</strong> No es opcional: las encías inflamadas se ven, y el mal aliento cancela todo lo demás de esta lista.</li>
+  <li><strong>Cepillo eléctrico</strong> con temporizador. Diferencia real contra el manual.</li>
+  <li><strong>Blanqueamiento:</strong> preguntá en la misma consulta. En consultorio es más rápido; con férulas en casa es más barato y suficiente. Nada de kits de internet sin supervisión.</li>
+  <li><strong>Si hay apiñamiento o mordida cruzada</strong>, pedí presupuesto de alineadores. A los 28 todavía es rápido, y es lo único de este documento que cambia la estructura de la cara de forma permanente.</li>
+</ul>
+
+<h2>2 · Pelo — lo urgente primero</h2>
+<h3>Auditoría de línea frontal (hacela hoy, 5 minutos)</h3>
+<p class="prose">Foto de la línea del pelo de frente y una de la coronilla desde arriba, con luz cenital.
+Guardalas fechadas y repetí cada 6 meses. Compará con una foto tuya de los 20-22 años.</p>
+
+<div class="box">
+  <p class="t">Si hay retroceso en las entradas o menos densidad en la coronilla, este es el punto más urgente del documento</p>
+  <p>Los tratamientos con evidencia —minoxidil tópico, finasterida oral o tópica— <strong>conservan mucho
+  mejor de lo que recuperan</strong>. A los 28 con pérdida incipiente, la diferencia entre empezar ahora y
+  empezar a los 33 es enorme y no se recupera después.</p>
+  <p>Consulta dermatológica, no foro de internet: la finasterida es medicación con efectos adversos que
+  corresponde conversar con un profesional. Si no hay ningún signo, sacá las fotos igual y seguí.</p>
+</div>
+
+<h3>Corte y mantenimiento</h3>
+<ul>
+  <li><strong>Cada 3-4 semanas, no cada 8.</strong> Un corte crecido se ve descuidado aunque sea un buen corte. Agendá la próxima cita al salir de la actual.</li>
+  <li><strong>Un solo barbero fijo.</strong> El valor está en que te conozca el remolino y la forma de la cabeza.</li>
+  <li>Pedí <strong>volumen arriba y laterales más cortos</strong>: alarga visualmente la cara y ensancha el contraste hombro-cabeza, que es exactamente lo que el plan de torso está construyendo.</li>
+  <li><strong>Producto:</strong> clay o pasta de acabado mate. Nada de gel brillante ni exceso — el pelo debe verse pelo, no producto.</li>
+  <li><strong>Champú</strong> 2-3 veces por semana, no todos los días. Si hay caspa, con ketoconazol o piritionato de zinc dos veces por semana.</li>
+</ul>
+
+<h2>3 · Piel — el protocolo mínimo que sí funciona</h2>
+<p class="prose">Cuatro productos. No hace falta más, y más suele ser peor.</p>
+
+<div class="cols">
+  <div>
+    <h3>Mañana</h3>
+    <ol>
+      <li><strong>Limpiador suave</strong> o agua fría. Sin jabón agresivo, sin sensación de tirante después.</li>
+      <li><strong>Hidratante ligero</strong>, con niacinamida si la conseguís.</li>
+      <li><strong>Protector solar SPF 50, todos los días del año</strong>, llueva o no. Dos dedos de producto para cara y cuello.</li>
+    </ol>
+  </div>
+  <div>
+    <h3>Noche</h3>
+    <ol>
+      <li><strong>Limpiador suave.</strong> Obligatorio si usaste protector solar: hay que sacarlo.</li>
+      <li><strong>Hidratante.</strong></li>
+      <li><strong>Retinoide</strong>, con la rampa de la tabla. Es el segundo activo con más evidencia después del SPF.</li>
+    </ol>
+  </div>
+</div>
+
+<div class="box navy">
+  <p class="t">Si de todo este documento hacés una sola cosa, que sea el protector solar</p>
+  <p>El 80 % del envejecimiento visible de la piel es fotoenvejecimiento. Ninguna crema, ningún
+  suplemento y ningún tratamiento compensa después lo que el sol hace todos los días antes.</p>
+</div>
+
+<h3>Rampa del retinoide</h3>
+<table class="tight" style="max-width:70%">
+  <thead><tr><th style="width:38%">Semanas</th><th>Frecuencia</th></tr></thead>
+  <tr><td class="b">1 y 2</td><td>2 noches por semana</td></tr>
+  <tr><td class="b">3 y 4</td><td>3 noches por semana</td></tr>
+  <tr><td class="b">5 a 8</td><td>Noche por medio</td></tr>
+  <tr><td class="b">9 en adelante</td><td>Todas las noches, si no irrita</td></tr>
+</table>
+<p class="caption">Empezá con retinol de venta libre 0,3-0,5 %. La tretinoína es con receta y la indica un
+dermatólogo. Si arde o se pela, bajá la frecuencia — no abandones.</p>
+
+<h3>Cuatro reglas</h3>
+<ul>
+  <li><strong>Un producto nuevo por vez, con dos semanas de margen.</strong> Si algo irrita, tenés que saber qué fue.</li>
+  <li><strong>No exfoliar más de 1-2 veces por semana.</strong> La piel irritada se ve peor, no más limpia.</li>
+  <li><strong>Si tenés acné activo o marcas, dermatólogo.</strong> Un tratamiento indicado resuelve en meses lo que la rutina de góndola no resuelve en años.</li>
+  <li><strong>Labios:</strong> bálsamo con SPF. Detalle mínimo, muy visible.</li>
+</ul>
+
+<h2>4 · Barba, cejas y detalles de cara</h2>
+<ul>
+  <li><strong>Barba: o prolija o no hay.</strong> Pedile al barbero que te defina la <strong>línea del cuello</strong> —dos dedos arriba de la nuez, en curva, no recta— y la <strong>línea del pómulo</strong>. Después vos mantenés esas líneas cada 3-4 días con la máquina. Una barba con forma definida marca mandíbula; una sin forma hace exactamente lo contrario.</li>
+  <li><strong>Largo:</strong> si buscás definición de mandíbula, 3-6 mm con líneas marcadas funciona mejor que barba larga a los 28.</li>
+  <li><strong>Cejas:</strong> sacá solo el entrecejo y los pelos sueltos fuera de la línea natural. Nada de depilar la forma. Peinalas hacia arriba y afuera.</li>
+  <li><strong>Nariz y orejas:</strong> recortadora cada 2 semanas. Nadie lo menciona y todos lo ven.</li>
+  <li><strong>Hinchazón facial matinal:</strong> sodio alto la noche anterior, poco sueño y deshidratación son las tres causas, y las tres las controlás vos. La cuarta, el alcohol, ya la tenés resuelta.</li>
+</ul>
+
+<h2>5 · Cuerpo, fuera de las pesas</h2>
+
+<div class="box navy">
+  <p class="t">Expectativa: la cara empieza a cambiar abajo del 18 % de grasa</p>
+  <p>Tu plan va de 81,2 kg y 27 % a 74-76 kg y 20-22 %. El cambio facial —mandíbula, pómulos, cuello—
+  aparece en la segunda mitad de esa fase, no al principio. Si a la semana 6 no ves diferencia en la cara,
+  no está fallando nada: todavía no llegaste al umbral. Esa es exactamente la semana en la que la mayoría abandona.</p>
+</div>
+
+<div class="cols">
+  <div>
+    <h3>Postura: 5 minutos después de cada sesión</h3>
+    <p>El plan v2 ya corrigió el desbalance empuje/jalón, que era la causa estructural de los hombros
+    hacia adelante. Encima de eso:</p>
+    <ul>
+      <li>Extensión torácica sobre rodillo o banco — 60 s</li>
+      <li>Estiramiento de flexor de cadera en zancada — 45 s por lado</li>
+      <li>Dislocaciones de hombro con banda — 15 repeticiones</li>
+    </ul>
+  </div>
+  <div>
+    <h3>El resto del día</h3>
+    <ul>
+      <li><strong>Escritorio:</strong> monitor a la altura de los ojos, pies apoyados, de pie cada 45-60 minutos.</li>
+      <li><strong>Celular a la altura de la cara</strong>, no el cuello doblado hacia abajo.</li>
+      <li><strong>Pasos:</strong> los 8-10 000 del plan hacen doble trabajo — además del déficit, caminar erguido todos los días entrena la postura mejor que cualquier ejercicio correctivo.</li>
+    </ul>
+  </div>
+</div>
+
+<h2>6 y 7 · Olor, manos y uñas</h2>
+<div class="cols">
+  <div>
+    <h3>Olor — invisible y decisivo</h3>
+    <ul>
+      <li><strong>Ducha diaria</strong> y ropa de gimnasio lavada después de cada uso, sin excepción.</li>
+      <li><strong>Antitranspirante de noche, sobre piel seca</strong>: así funciona mejor el compuesto de aluminio. Reaplicás a la mañana si querés.</li>
+      <li><strong>Una fragancia, no cinco.</strong> Dos aplicaciones: cuello y pecho, o muñecas. Si la seguís sintiendo vos a las dos horas, te pusiste de más. Perfil seguro a los 28: cítrico-amaderado o fougère fresco.</li>
+      <li><strong>Sábanas cada semana, toalla cada 3 días.</strong> El olor de la casa te acompaña puesto.</li>
+      <li><strong>Limpiador de lengua</strong> a la mañana: más efectivo que cualquier chicle.</li>
+    </ul>
+  </div>
+  <div>
+    <h3>Manos — están siempre a la vista</h3>
+    <ul>
+      <li><strong>Uñas cortas y parejas, una vez por semana</strong>, día fijo.</li>
+      <li><strong>Limpiar debajo del borde</strong> cada vez que te duchás.</li>
+      <li><strong>Cutícula empujada, no cortada.</strong></li>
+      <li><strong>Crema de manos de noche</strong>, sobre todo con barra rugosa y magnesio: los callos gruesos son de gimnasio, pero no suman.</li>
+      <li><strong>Padrastros:</strong> alicate, no arrancarlos.</li>
+    </ul>
+  </div>
+</div>
+
+<h2>8 · Ropa — calce, no marca</h2>
+<p class="prose">La regla única: una remera barata que calza bien gana siempre contra una cara que no.</p>
+
+<div class="box">
+  <p class="t">Timing: no armes el guardarropa ahora</p>
+  <p>Vas a perder 5-7 kg en los próximos 3-4 meses. Comprar hoy es comprar dos veces.
+  <strong>Ahora:</strong> lo mínimo para funcionar, y mandá a ajustar 2 o 3 prendas que ya tengas — un sastre
+  cobra poco por entallar una camisa o subir un ruedo, y el cambio es enorme.
+  <strong>A las 14-16 semanas, en tu peso objetivo:</strong> ahí sí, guardarropa completo.</p>
+</div>
+
+<h3>Los cuatro puntos de calce que importan</h3>
+<table>
+  <thead><tr><th style="width:34%">Punto</th><th>Qué mirar</th></tr></thead>
+  <tr><td class="b">Hombro</td><td>La costura justo sobre el hueso, ni colgando ni tirando. Es el único que no se arregla después: si el hombro no calza, la prenda no es tuya.</td></tr>
+  <tr><td class="b">Manga de remera</td><td>A media distancia entre hombro y codo, ajustada sin apretar. Con el trabajo de deltoides del plan, esto va a jugar a favor tuyo.</td></tr>
+  <tr><td class="b">Largo de pantalón</td><td>Sin quiebre o con quiebre mínimo sobre el zapato.</td></tr>
+  <tr><td class="b">Cintura de camisa</td><td>Que se marque la cintura. Una camisa que cae recta es un rectángulo.</td></tr>
+</table>
+
+<div class="cols">
+  <div>
+    <h3>Guardarropa base (semana 14-16)</h3>
+    <ul>
+      <li>5-6 remeras de calidad, cuello redondo o V leve: blanco, negro, gris, azul marino, verde oliva</li>
+      <li>2 camisas oxford (blanca y celeste) + 1 oscura</li>
+      <li>1 jean azul oscuro y 1 negro, recto o slim, sin roturas</li>
+      <li>1 chino beige o gris</li>
+      <li>1 campera de cuero o bomber oscura + 1 sobrecamisa</li>
+      <li>Zapatillas blancas <em>limpias</em>, botas de cuero marrón, y las de gym solo para el gym</li>
+      <li>1 conjunto formal impecable, aunque lo uses 3 veces al año</li>
+    </ul>
+  </div>
+  <div>
+    <h3>Detalles que se notan</h3>
+    <ul>
+      <li><strong>Colores sólidos y oscuros</strong> arriba antes que estampados. Contraste alto cerca de la cara.</li>
+      <li><strong>Un reloj simple.</strong> Un accesorio bueno, no tres.</li>
+      <li><strong>Ropa interior y medias nuevas cada tanto:</strong> lo viejo se nota aunque no se vea.</li>
+      <li><strong>Nada de ropa de gimnasio fuera del gimnasio.</strong></li>
+    </ul>
+  </div>
+</div>
+
+<h2>9 · Presencia — lo que más cambia y nadie entrena</h2>
+<p class="prose">Dos personas con el mismo cuerpo y el mismo corte pueden puntuar muy distinto.
+La diferencia es esto, y no cuesta nada:</p>
+<ul>
+  <li><strong>Caminá y hablá un 20 % más lento.</strong> La velocidad alta lee como ansiedad; el movimiento pausado lee como seguridad. Es el cambio más grande y el más fácil de practicar.</li>
+  <li><strong>Hombros atrás y abajo, mentón paralelo al piso</strong>, ni levantado ni hundido.</li>
+  <li><strong>Contacto visual sostenido mientras escuchás</strong>, no solo mientras hablás. Si te cuesta, mirá un ojo a la vez.</li>
+  <li><strong>No llenes los silencios.</strong> El que tolera la pausa controla la conversación.</li>
+  <li><strong>Sonreí con los ojos.</strong> Una sonrisa genuina arruga el contorno del ojo; la fingida no. Se distingue al instante y define casi toda la impresión de simpatía.</li>
+  <li><strong>Manos visibles y quietas.</strong> Nada de bolsillos ni celular cuando alguien te está hablando.</li>
+</ul>
+
+<div class="box green">
+  <p class="t">El ejercicio semanal</p>
+  <p>Grabate 60 segundos hablando de cualquier cosa, una vez por semana. Es incómodo y es lo más
+  efectivo de esta sección: vas a ver tu ritmo, tu postura y tus muletillas como los ve el resto,
+  que es información que de otro modo nunca tenés.</p>
+</div>
+
+<h2>10 · Fotos</h2>
+<p class="prose">Si hay redes o apps de por medio, tus fotos <strong>son</strong> tu atractivo para
+quien todavía no te conoció.</p>
+<ul>
+  <li><strong>Luz natural</strong>, de frente o levemente lateral. Nunca luz cenital dura ni flash directo.</li>
+  <li><strong>Cámara a la altura de los ojos o apenas arriba.</strong> Desde abajo no sale bien nadie.</li>
+  <li><strong>Mandíbula:</strong> lengua contra el paladar, mentón apenas hacia adelante y abajo. Elimina el pliegue del cuello en cualquier foto.</li>
+  <li><strong>Que las saque otra persona.</strong> Las selfies deforman por el gran angular y se nota.</li>
+  <li><strong>Variedad:</strong> una de cuerpo entero, una de medio cuerpo, una haciendo algo real. Nada de espejo de gimnasio.</li>
+  <li><strong>Renovalas cada 3 meses</strong> durante la Fase 1, porque tu cara va a cambiar.</li>
+</ul>
+
+<h2>11 · El calendario</h2>
+<div class="cols may-break">
+  <div>
+    <h3>Todos los días</h3>
+    <ul class="check">
+      <li>SPF a la mañana</li>
+      <li>Limpiador + hidratante a la noche</li>
+      <li>Retinoide, según la rampa</li>
+      <li>Hilo dental + cepillado 2×</li>
+      <li>Antitranspirante de noche</li>
+      <li>7-9 h de sueño, horario fijo</li>
+      <li>Postura: de pie cada hora</li>
+    </ul>
+    <h3>Cada semana</h3>
+    <ul class="check">
+      <li>Uñas: corte y limpieza, día fijo</li>
+      <li>Sábanas</li>
+      <li>Barba: líneas de cuello y pómulo (cada 3-4 días)</li>
+      <li>Exfoliación suave, 1-2 veces</li>
+      <li>Grabarte 60 segundos hablando</li>
+    </ul>
+  </div>
+  <div>
+    <h3>Cada 3-4 semanas</h3>
+    <ul class="check">
+      <li>Barbero</li>
+      <li>Recortadora de nariz y orejas</li>
+      <li>Entrecejo</li>
+      <li>Fotos de progreso, las mismas 3 poses del plan</li>
+      <li>Fotos nuevas de perfil social</li>
+    </ul>
+    <h3>Cada 6 meses</h3>
+    <ul class="check">
+      <li>Limpieza dental</li>
+      <li>Foto de línea frontal y coronilla, comparada con la anterior</li>
+      <li>Control dermatológico de lunares</li>
+    </ul>
+  </div>
+</div>
+<p class="caption">El sueño, el agua y las fotos de progreso ya los registrás en el formulario del plan
+de entrenamiento. No hace falta un segundo sistema: agregá estas filas al mismo.</p>
+
+<h2>12 · Lo que no funciona</h2>
+<p class="prose">Hay mucho ruido alrededor de este tema. Con la evidencia disponible hoy, esto es
+gasto sin retorno:</p>
+<table>
+  <thead><tr><th style="width:38%">Se promociona</th><th>Realidad</th></tr></thead>
+  <tr><td class="b">Ejercicios faciales, “mewing”, mascar chicles duros</td><td>Sin evidencia de que cambien la estructura ósea de un adulto. La definición de mandíbula viene de bajar grasa.</td></tr>
+  <tr><td class="b">Rodillos de jade, gua sha</td><td>Mueven líquido unas horas. Cero efecto duradero.</td></tr>
+  <tr><td class="b">Colágeno en polvo</td><td>Evidencia débil, y muy menor frente a SPF y retinoide. Con 165-175 g de proteína ya cubrís los aminoácidos de sobra.</td></tr>
+  <tr><td class="b">Rutinas de piel de 10 pasos</td><td>Más irritación y más gasto, ningún beneficio extra sobre los cuatro productos de la sección 3.</td></tr>
+  <tr><td class="b">Suplementos “para el pelo”</td><td>Solo sirven ante una deficiencia real. Si hay caída androgénica, no hacen nada — y te hacen perder el tiempo que sí importa.</td></tr>
+  <tr><td class="b">Cremas “efecto lifting”</td><td>Efecto tensor temporal, de horas.</td></tr>
+  <tr><td class="b">Camas solares o broncearse para “verse mejor”</td><td>Daño acumulativo directo. Es exactamente lo contrario de verse joven.</td></tr>
+</table>
+<p class="caption">Lo que sí tiene evidencia sólida: protector solar, retinoides, sueño, salud dental,
+no fumar y composición corporal. Nada más de esta industria se le acerca.</p>
+
+<h2>13 · Presupuesto y orden de compra</h2>
+<div class="cols wide-left">
+  <div>
+    <table class="tight">
+      <thead><tr><th style="width:30%">Cuándo</th><th>Qué</th></tr></thead>
+      <tr><td class="b">Esta semana</td><td>Protector solar SPF 50 · limpiador suave · hidratante · cepillo eléctrico · hilo dental · antitranspirante · cortaúñas y alicate · recortadora de nariz y orejas</td></tr>
+      <tr><td class="b">Semana 3</td><td>Retinol 0,3-0,5 % · clay mate para el pelo · crema de manos · bálsamo labial con SPF</td></tr>
+      <tr><td class="b">Semana 4-6</td><td>Una fragancia. Probala en la piel, no en papel, y esperá dos horas antes de decidir</td></tr>
+      <tr><td class="b">Semana 14-16</td><td>Guardarropa completo, ya en el peso objetivo. Hasta entonces, solo el sastre</td></tr>
+    </table>
+  </div>
+  <div>
+    <h3>Turnos a sacar ya</h3>
+    <ul class="check">
+      <li><strong>Odontólogo:</strong> limpieza, y consulta por blanqueamiento y alineación</li>
+      <li><strong>Barbero fijo:</strong> cita recurrente cada 3 semanas</li>
+      <li><strong>Dermatólogo:</strong> si hay acné, marcas o cualquier signo en la línea frontal</li>
+      <li><strong>Sastre:</strong> 2-3 prendas que ya tengas</li>
+    </ul>
+  </div>
+</div>
+
+<h2>14 · Cómo saber si está funcionando</h2>
+<p class="prose">La trampa de este tema es que no hay una balanza. Lo que sirve:</p>
+<table>
+  <thead><tr><th style="width:26%">Qué</th><th style="width:20%">Cada cuánto</th><th>Para qué</th></tr></thead>
+  <tr><td class="b">Fotos de cara</td><td>4 semanas</td><td>Misma luz, misma hora. Aprovechá la sesión que ya hacés para el plan</td></tr>
+  <tr><td class="b">Foto de línea frontal</td><td>6 meses</td><td>Único modo de detectar a tiempo algo que se mueve muy despacio</td></tr>
+  <tr><td class="b">Adherencia</td><td>Semanal</td><td>Cuántos días de 28 cumpliste SPF, hilo dental y horario de sueño</td></tr>
+  <tr><td class="b">Indicador social</td><td>Continuo</td><td>Más gente que te sostiene la mirada, más conversaciones que no empezás vos</td></tr>
+</table>
+<p class="caption">En 90 días el resultado es consecuencia de la adherencia, no al revés. Medí lo que hacés,
+no lo que esperás que pase.</p>
+
+<div class="box green" style="margin-bottom:2mm">
+  <p class="t">Si solo hacés cinco cosas</p>
+  <p><strong>1.</strong> Turno con el odontólogo esta semana: limpieza, y preguntá por blanqueamiento y alineación.<br>
+  <strong>2.</strong> SPF 50 todas las mañanas, al lado del cepillo de dientes para no olvidarlo.<br>
+  <strong>3.</strong> Barbero cada 3 semanas, con la cita agendada al salir de la anterior.<br>
+  <strong>4.</strong> Foto de la línea frontal hoy. Si ves retroceso, dermatólogo este mes — esa ventana se cierra.<br>
+  <strong>5.</strong> Hablá y caminá un 20 % más lento.</p>
+  <p>Las cinco juntas cuestan menos que un mes de gimnasio y se ven antes que las doce semanas del plan.</p>
+</div>
+
+<p class="caption" style="margin-top:0">Complemento del Plan de Entrenamiento v2. Lo referido a medicación y a tratamientos dermatológicos u odontológicos es orientativo y corresponde a consulta profesional.</p>
+
+</div>
+</body>
+</html>
