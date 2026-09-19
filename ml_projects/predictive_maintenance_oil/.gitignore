@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Artefactos regenerables: se reconstruyen con `make all`
+data/raw/*.csv
+data/processed/*.csv
+models/*.joblib
+reports/*.csv
+reports/*.json

@@ -1,0 +1,10 @@
+numpy>=1.24
+pandas>=2.0
+scikit-learn>=1.3
+joblib>=1.3
+
+# Opcionales: el proyecto corre sin ellos.
+# lightgbm>=4.0      # mejor modelo tabular; train.py lo usa si está instalado
+# shap>=0.44         # explicabilidad por muestra
+# fastapi>=0.110     # servicio de scoring
+# uvicorn>=0.29
