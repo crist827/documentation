@@ -1,0 +1,1051 @@
+<title>Evidencia sobre creatividad e inteligencia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+
+<style>
+:root{
+  --ground:#EBEEF4;
+  --surface:#FFFFFF;
+  --surface-2:#F4F6FA;
+  --ink:#10131C;
+  --ink-2:#39405230;
+  --muted:#5A6275;
+  --rule:#D3D9E5;
+  --rule-soft:#E3E7EF;
+  --accent:#2743D9;
+  --accent-soft:#2743D914;
+  --good:#0E7A55;
+  --warn:#B08000;
+  --bad:#BE2B22;
+  --good-soft:#0E7A5514;
+  --warn-soft:#B0800014;
+  --bad-soft:#BE2B2214;
+  --band:#10131C08;
+
+  --display:"Bricolage Grotesque","Helvetica Neue",Arial,sans-serif;
+  --body:"Newsreader",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;
+
+  --measure:66ch;
+  --gutter:20px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#080A0F;
+    --surface:#121620;
+    --surface-2:#171C28;
+    --ink:#E6E9F2;
+    --ink-2:#98A1B740;
+    --muted:#98A1B7;
+    --rule:#262D3D;
+    --rule-soft:#1D2431;
+    --accent:#6E88F5;
+    --accent-soft:#6E88F51F;
+    --good:#20A071;
+    --warn:#B58A00;
+    --bad:#E0495C;
+    --good-soft:#20A0711F;
+    --warn-soft:#B58A001F;
+    --bad-soft:#E0495C1F;
+    --band:#E6E9F20A;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#080A0F;
+  --surface:#121620;
+  --surface-2:#171C28;
+  --ink:#E6E9F2;
+  --ink-2:#98A1B740;
+  --muted:#98A1B7;
+  --rule:#262D3D;
+  --rule-soft:#1D2431;
+  --accent:#6E88F5;
+  --accent-soft:#6E88F51F;
+  --good:#20A071;
+  --warn:#B58A00;
+  --bad:#E0495C;
+  --good-soft:#20A0711F;
+  --warn-soft:#B58A001F;
+  --bad-soft:#E0495C1F;
+  --band:#E6E9F20A;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--ground);
+  color:var(--ink);
+  font-family:var(--body);
+  font-size:17px;
+  line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--accent-soft)}
+a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:2px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+html{scroll-behavior:smooth}
+
+/* ---------- shell ---------- */
+.shell{max-width:1180px;margin:0 auto;padding-inline:var(--gutter);padding-block:0}
+.layout{display:grid;grid-template-columns:1fr;gap:0}
+@media (min-width:980px){
+  .layout{grid-template-columns:210px minmax(0,1fr);gap:56px;align-items:start}
+}
+
+/* ---------- masthead ---------- */
+.masthead{padding-block:48px 34px;border-bottom:1px solid var(--rule)}
+.eyebrow{
+  font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--muted);margin:0 0 18px
+}
+.masthead h1{
+  font-family:var(--display);font-weight:800;font-size:clamp(2.1rem,6.4vw,3.6rem);
+  line-height:1.02;letter-spacing:-.025em;margin:0;text-wrap:balance;max-width:16ch
+}
+.masthead h1 em{font-style:normal;color:var(--accent)}
+.standfirst{
+  max-width:56ch;margin:20px 0 0;font-size:1.13rem;color:var(--muted);line-height:1.55
+}
+.byline{
+  display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:22px;
+  font-family:var(--mono);font-size:11.5px;color:var(--muted);letter-spacing:.02em
+}
+
+/* ---------- headline figures ---------- */
+.figures{
+  display:grid;grid-template-columns:1fr;gap:0;
+  border-block:1px solid var(--rule);margin-block:0
+}
+@media (min-width:640px){.figures{grid-template-columns:repeat(3,1fr)}}
+.fig{padding:22px 0}
+@media (min-width:640px){
+  .fig{padding:24px 26px}
+  .fig+.fig{border-left:1px solid var(--rule-soft)}
+  .fig:first-child{padding-left:0}
+  .fig:last-child{padding-right:0}
+}
+.fig+.fig{border-top:1px solid var(--rule-soft)}
+@media (min-width:640px){.fig+.fig{border-top:0}}
+.fig .n{
+  font-family:var(--display);font-weight:700;font-size:2.3rem;line-height:1;
+  letter-spacing:-.03em;font-variant-numeric:tabular-nums;display:block
+}
+.fig .n small{font-size:.95rem;font-weight:500;letter-spacing:0;color:var(--muted);margin-left:6px}
+.fig .k{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--muted);display:block;margin-bottom:10px
+}
+.fig p{margin:10px 0 0;font-size:.93rem;line-height:1.5;color:var(--muted);max-width:32ch}
+.fig.is-neg .n{color:var(--bad)}
+.fig.is-pos .n{color:var(--good)}
+
+/* ---------- nav rail ---------- */
+.rail{display:none}
+@media (min-width:980px){
+  .rail{
+    display:block;position:sticky;top:calc(env(safe-area-inset-top,0px) + 28px);
+    padding-block:40px 0
+  }
+  .rail ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:1px}
+  .rail a{
+    display:grid;grid-template-columns:24px 1fr;gap:8px;align-items:baseline;
+    padding:6px 8px 6px 0;font-family:var(--mono);font-size:11.5px;line-height:1.35;
+    color:var(--muted);text-decoration:none;border-left:2px solid transparent;
+    padding-left:12px;transition:color .15s,border-color .15s
+  }
+  .rail a span:first-child{opacity:.55;font-variant-numeric:tabular-nums}
+  .rail a:hover{color:var(--ink)}
+  .rail a.active{color:var(--ink);border-left-color:var(--accent)}
+  .rail a.active span:first-child{color:var(--accent);opacity:1}
+  .rail .rail-title{
+    font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--muted);padding-left:12px;margin-bottom:14px
+  }
+}
+/* mobile section strip */
+.strip{
+  position:sticky;top:env(safe-area-inset-top,0px);z-index:20;
+  background:color-mix(in srgb,var(--ground) 92%,transparent);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);
+  margin-inline:calc(var(--gutter) * -1);padding-inline:var(--gutter);
+  overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none
+}
+.strip::-webkit-scrollbar{display:none}
+.strip ol{display:flex;gap:0;list-style:none;margin:0;padding:0}
+.strip a{
+  display:block;white-space:nowrap;padding:12px 14px 11px;font-family:var(--mono);
+  font-size:11px;letter-spacing:.04em;color:var(--muted);text-decoration:none;
+  border-bottom:2px solid transparent
+}
+.strip a.active{color:var(--ink);border-bottom-color:var(--accent)}
+@media (min-width:980px){.strip{display:none}}
+
+/* ---------- sections ---------- */
+main{padding-bottom:80px}
+.sec{padding-block:52px 8px;scroll-margin-top:72px}
+.sec+.sec{border-top:1px solid var(--rule-soft)}
+.sec-head{display:flex;gap:14px;align-items:baseline;margin-bottom:8px}
+.sec-num{
+  font-family:var(--mono);font-size:11px;color:var(--accent);letter-spacing:.1em;
+  padding-top:.45em;flex:none
+}
+.sec h2{
+  font-family:var(--display);font-weight:700;font-size:clamp(1.45rem,3.6vw,2rem);
+  line-height:1.12;letter-spacing:-.022em;margin:0;text-wrap:balance
+}
+.sec h3{
+  font-family:var(--display);font-weight:600;font-size:1.06rem;letter-spacing:-.01em;
+  margin:34px 0 6px;text-wrap:balance
+}
+.sec p{max-width:var(--measure);margin:0 0 16px}
+.lede{font-size:1.06rem;color:var(--muted);max-width:58ch;margin-bottom:26px!important}
+strong{font-weight:600}
+.sec ul{max-width:var(--measure);padding-left:1.1em;margin:0 0 18px}
+.sec li{margin-bottom:7px}
+.d{font-family:var(--mono);font-size:.86em;font-weight:500;font-variant-numeric:tabular-nums;
+  background:var(--accent-soft);color:var(--accent);padding:1px 5px;border-radius:3px;white-space:nowrap}
+
+/* claims list (section 1) */
+.claims{list-style:none;padding:0;margin:0;max-width:var(--measure);
+  display:flex;flex-direction:column;gap:0}
+.claims li{
+  display:grid;grid-template-columns:28px 1fr;gap:14px;margin:0;
+  padding:18px 0;border-top:1px solid var(--rule-soft)
+}
+.claims li:first-child{border-top:0;padding-top:4px}
+.claims .mk{font-family:var(--mono);font-size:11px;color:var(--muted);padding-top:.4em;font-variant-numeric:tabular-nums}
+
+/* source line */
+.src{
+  font-family:var(--mono);font-size:11.5px;line-height:1.6;color:var(--muted);
+  max-width:var(--measure);margin:0 0 20px;padding-left:12px;border-left:2px solid var(--rule)
+}
+.src a{color:var(--muted);text-decoration-color:var(--ink-2)}
+.src a:hover{color:var(--accent)}
+
+/* study block */
+.study{
+  background:var(--surface);border:1px solid var(--rule-soft);border-radius:4px;
+  padding:20px 22px;margin:0 0 22px;max-width:var(--measure)
+}
+.study .cite{
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.01em;color:var(--muted);
+  margin:0 0 12px;line-height:1.55
+}
+.study .cite b{color:var(--ink);font-weight:600}
+.study p:last-child,.study ul:last-child{margin-bottom:0}
+
+/* pull quote */
+.pull{
+  max-width:var(--measure);margin:30px 0;padding:0 0 0 22px;border-left:3px solid var(--accent);
+  font-family:var(--display);font-weight:500;font-size:1.22rem;line-height:1.35;
+  letter-spacing:-.015em;text-wrap:balance
+}
+.pull cite{display:block;font-family:var(--mono);font-size:11px;font-style:normal;
+  color:var(--muted);margin-top:12px;letter-spacing:.06em;text-transform:uppercase}
+
+/* ---------- forest plot ---------- */
+figure{margin:30px 0 26px}
+.plot{
+  background:var(--surface);border:1px solid var(--rule-soft);border-radius:4px;padding:22px 20px 16px
+}
+.plot-title{font-family:var(--display);font-weight:600;font-size:1rem;margin:0 0 4px;letter-spacing:-.01em}
+.plot-sub{font-family:var(--mono);font-size:11px;color:var(--muted);margin:0 0 22px;line-height:1.5}
+.prow{display:grid;grid-template-columns:1fr;gap:4px;margin-bottom:16px}
+@media (min-width:660px){.prow{grid-template-columns:200px minmax(0,1fr);gap:18px;align-items:center}}
+.plabel{font-family:var(--mono);font-size:11px;line-height:1.4;color:var(--muted)}
+.plabel b{display:block;color:var(--ink);font-weight:600;font-size:11.5px}
+.ptrack{position:relative;height:30px}
+.ptrack .grid{position:absolute;top:0;bottom:0;width:1px;background:var(--rule-soft)}
+.ptrack .grid.key{background:var(--rule)}
+.mk-dot{
+  position:absolute;top:50%;width:13px;height:13px;border-radius:50%;
+  transform:translate(-50%,-50%);border:2px solid var(--surface);cursor:default
+}
+.mk-bar{position:absolute;top:50%;height:5px;border-radius:2.5px;transform:translateY(-50%)}
+.mk-val{
+  position:absolute;top:50%;transform:translateY(-50%);font-family:var(--mono);
+  font-size:11.5px;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap
+}
+.is-old .mk-dot{background:var(--surface);border-color:var(--muted);box-shadow:inset 0 0 0 2px var(--muted)}
+.is-old .mk-val{color:var(--muted)}
+.is-raw .mk-dot{background:var(--surface);border-color:var(--warn);box-shadow:inset 0 0 0 3px var(--warn)}
+.is-raw .mk-val{color:var(--warn)}
+.is-key .mk-dot{background:var(--accent);border-color:var(--surface);width:15px;height:15px}
+.is-key .mk-bar{background:var(--accent)}
+.is-key .mk-val{color:var(--accent)}
+.axis{position:relative;height:34px;margin-top:2px;border-top:1px solid var(--rule)}
+.tick{position:absolute;top:0;transform:translateX(-50%);text-align:center}
+.tick i{display:block;width:1px;height:5px;background:var(--rule);margin:0 auto}
+.tick span{font-family:var(--mono);font-size:10.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.axis-name{font-family:var(--mono);font-size:10.5px;color:var(--muted);text-align:center;margin-top:-14px}
+.cohen{position:relative;height:18px;margin-top:-4px}
+.cohen span{
+  position:absolute;transform:translateX(-50%);font-family:var(--mono);font-size:10px;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--muted);white-space:nowrap
+}
+.cohen-note{font-family:var(--mono);font-size:10.5px;color:var(--muted);margin-top:14px;
+  padding-top:12px;border-top:1px solid var(--rule-soft)}
+.drop{
+  position:relative;height:36px;margin:2px 0 18px;display:none
+}
+@media (min-width:660px){.drop{display:block;margin-left:218px}}
+.drop .brk{position:absolute;top:8px;height:8px;border:1px solid var(--accent);border-top:0;opacity:.7}
+.drop .lbl{
+  position:absolute;top:19px;transform:translateX(-50%);font-family:var(--mono);font-size:10.5px;
+  color:var(--accent);white-space:nowrap;text-align:center
+}
+figcaption{font-family:var(--mono);font-size:11px;line-height:1.6;color:var(--muted);margin-top:12px;max-width:var(--measure)}
+
+/* tooltip */
+.tip{
+  position:fixed;z-index:60;pointer-events:none;opacity:0;transform:translate(-50%,-115%);
+  background:var(--ink);color:var(--ground);font-family:var(--mono);font-size:11px;line-height:1.5;
+  padding:7px 10px;border-radius:4px;max-width:250px;transition:opacity .12s
+}
+.tip.on{opacity:1}
+.tip b{display:block;font-size:11.5px;margin-bottom:2px}
+
+/* ---------- catalogue ---------- */
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 20px}
+.chip{
+  font-family:var(--mono);font-size:11px;letter-spacing:.04em;padding:7px 13px;
+  border:1px solid var(--rule);background:var(--surface);color:var(--muted);
+  border-radius:100px;cursor:pointer;transition:border-color .15s,color .15s,background .15s
+}
+.chip:hover{color:var(--ink);border-color:var(--muted)}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--ground);border-color:var(--ink)}
+.chip .c{font-variant-numeric:tabular-nums;opacity:.6;margin-left:6px}
+.cat{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--rule)}
+.item{
+  display:grid;grid-template-columns:1fr;gap:6px;padding:18px 0;
+  border-bottom:1px solid var(--rule-soft)
+}
+@media (min-width:760px){
+  .item{grid-template-columns:118px minmax(0,1fr) 190px;gap:22px;align-items:start}
+}
+.item h4{font-family:var(--display);font-weight:600;font-size:1rem;margin:0 0 5px;letter-spacing:-.01em}
+.item p{margin:0;font-size:.94rem;line-height:1.5;max-width:52ch}
+.item .ev{
+  font-family:var(--mono);font-size:11px;line-height:1.55;color:var(--muted)
+}
+.item .ev b{display:block;color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums}
+.pill{
+  display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10.5px;
+  font-weight:500;letter-spacing:.06em;text-transform:uppercase;padding:4px 9px;border-radius:3px;
+  white-space:nowrap
+}
+.pill::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor;flex:none}
+.pill.good{color:var(--good);background:var(--good-soft)}
+.pill.mid{color:var(--warn);background:var(--warn-soft)}
+.pill.bad{color:var(--bad);background:var(--bad-soft)}
+.pill.bad::before{border-radius:0;transform:rotate(45deg)}
+.pill.mid::before{border-radius:1px}
+.empty{font-family:var(--mono);font-size:12px;color:var(--muted);padding:28px 0}
+
+/* ---------- caveats ---------- */
+.caveats{list-style:none;padding:0;margin:0;max-width:var(--measure);counter-reset:cv}
+.caveats li{
+  padding:16px 0;border-top:1px solid var(--rule-soft);display:grid;
+  grid-template-columns:auto 1fr;gap:14px;margin:0
+}
+.caveats li::before{
+  counter-increment:cv;content:"C" counter(cv);font-family:var(--mono);font-size:10.5px;
+  color:var(--bad);background:var(--bad-soft);padding:2px 6px;border-radius:3px;height:fit-content;
+  margin-top:3px
+}
+.caveats b{display:block;margin-bottom:2px}
+
+/* ---------- bibliography ---------- */
+.bib{margin-top:6px}
+.bib h3{margin-top:28px}
+.bib ol{list-style:none;padding:0;margin:0}
+.bib li{
+  padding:11px 0;border-bottom:1px solid var(--rule-soft);font-family:var(--mono);
+  font-size:11.5px;line-height:1.6;color:var(--muted)
+}
+.bib li b{color:var(--ink);font-weight:600}
+.bib li a{display:inline-block;margin-top:2px;word-break:break-word}
+
+footer{
+  border-top:1px solid var(--rule);margin-top:44px;padding-block:26px 40px;
+  font-family:var(--mono);font-size:11px;color:var(--muted);line-height:1.7
+}
+footer p{max-width:var(--measure);margin:0}
+
+/* theme toggle */
+.tgl{
+  position:fixed;right:14px;bottom:calc(env(safe-area-inset-bottom,0px) + 14px);z-index:40;
+  width:38px;height:38px;border-radius:50%;border:1px solid var(--rule);background:var(--surface);
+  color:var(--muted);cursor:pointer;font-family:var(--mono);font-size:13px;line-height:1;
+  display:grid;place-items:center
+}
+.tgl:hover{color:var(--ink);border-color:var(--muted)}
+</style>
+
+<div class="shell">
+  <header class="masthead">
+    <p class="eyebrow">Revisión de evidencia · Meta-análisis y ensayos controlados</p>
+    <h1>¿Se puede entrenar la <em>creatividad</em> y la <em>inteligencia</em>?</h1>
+    <p class="standfirst">
+      Lo que sostienen los meta-análisis cuando se corrigen por sesgo de publicación y se exige
+      grupo control activo: los tamaños de efecto reales y qué hacer con ellos.
+    </p>
+    <div class="byline">
+      <span>Actualizado 20 sep 2026</span>
+      <span id="refcount">referencias</span>
+      <span>Métrica: d de Cohen salvo indicación</span>
+    </div>
+  </header>
+
+  <nav class="strip" aria-label="Secciones">
+    <ol id="strip-list"></ol>
+  </nav>
+
+  <div class="layout">
+    <nav class="rail" aria-label="Índice">
+      <div class="rail-title">Índice</div>
+      <ol id="rail-list"></ol>
+    </nav>
+
+    <main>
+
+      <section class="sec" id="s-resumen" data-title="Resumen">
+        <div class="sec-head"><span class="sec-num">01</span><h2>Cinco conclusiones que sobreviven a la corrección</h2></div>
+        <p class="lede">
+          El campo tiene dos literaturas de calidad muy distinta. La de creatividad está inflada
+          por sesgo de publicación pero deja un efecto real. La de entrenamiento cognitivo se
+          derrumba en cuanto aparece un grupo control activo.
+        </p>
+
+        <div class="figures">
+          <div class="fig">
+            <span class="k">Entrenamiento creativo</span>
+            <span class="n">0.30<small>DE</small></span>
+            <p>Efecto corregido por sesgo de publicación. Sin corregir aparentaba 0.53.</p>
+          </div>
+          <div class="fig is-neg">
+            <span class="k">Transferencia lejana</span>
+            <span class="n">≈ 0</span>
+            <p>Memoria de trabajo, ajedrez, música y videojuegos frente a control activo.</p>
+          </div>
+          <div class="fig is-pos">
+            <span class="k">Educación formal</span>
+            <span class="n">1–5<small>pts CI / año</small></span>
+            <p>Tres diseños cuasi-experimentales independientes, más de 600.000 personas.</p>
+          </div>
+        </div>
+
+        <ol class="claims">
+          <li><span class="mk">01</span><div><b>La creatividad se entrena, pero menos de lo que se afirmaba.</b>
+            El meta-análisis más grande del campo (169 estudios, 844 tamaños de efecto) pasa de
+            <span class="d">d = 0.53</span> a <span class="d">d = 0.29–0.32</span> al corregir el sesgo de publicación.
+            Sigue siendo un efecto real y generalizable; ya no es espectacular.</div></li>
+          <li><span class="mk">02</span><div><b>El <i>brain training</i> no mejora la inteligencia.</b>
+            Entrenar memoria de trabajo mejora las tareas de memoria de trabajo. No mejora habilidad
+            no verbal, verbal, lectura ni aritmética. Lo mismo vale para ajedrez, música y videojuegos.</div></li>
+          <li><span class="mk">03</span><div><b>La educación formal es la única intervención con evidencia fuerte sobre el CI.</b>
+            Entre 1 y 5 puntos por año adicional de escolarización, con persistencia en el tiempo.
+            El mecanismo es lento y acumulativo, no una app de 20 minutos.</div></li>
+          <li><span class="mk">04</span><div><b>Las palancas de estado son baratas y fiables.</b>
+            Sueño, ejercicio, incubación, caminar y meditación de monitorización abierta no cambian
+            tu capacidad estructural, pero sí cuánto rendimiento extraes de ella hoy.</div></li>
+          <li><span class="mk">05</span><div><b>Lo que funciona en creatividad es específico de dominio.</b>
+            Enseñar procesos cognitivos y heurísticas explícitas sobre problemas reales de tu campo.
+            Los talleres genéricos de «pensar fuera de la caja» son lo que peor rinde.</div></li>
+        </ol>
+      </section>
+
+      <section class="sec" id="s-entrenar" data-title="Entrenar creatividad">
+        <div class="sec-head"><span class="sec-num">02</span><h2>Entrenar la creatividad: el tamaño real del efecto</h2></div>
+        <p class="lede">
+          Cuatro meta-análisis sobre la misma pregunta, cincuenta años de distancia entre el
+          primero y el último. La diferencia entre ellos no es el fenómeno: es el rigor.
+        </p>
+
+        <figure>
+          <div class="plot" id="plot">
+            <p class="plot-title">Efecto del entrenamiento creativo sobre el rendimiento creativo</p>
+            <p class="plot-sub">Tamaño de efecto estandarizado (d de Cohen). Pasa el cursor sobre cada punto.</p>
+            <div id="plot-rows"></div>
+            <div class="drop" id="drop"></div>
+            <div class="axis" id="axis"></div>
+            <div class="cohen" id="cohen"></div>
+            <div class="axis-name" style="margin-top:2px">d de Cohen</div>
+            <div class="cohen-note">Las etiquetas pequeño / medio / grande son la convención de Cohen para interpretar la escala.</div>
+          </div>
+          <figcaption>
+            Los dos meta-análisis históricos (1984, 2006) no evaluaron sesgo de publicación. Sio y
+            Lortie-Forgues (2024) incluyeron 48 estudios no publicados precisamente para medirlo, y
+            encontraron evidencia convergente de sesgo fuerte: todos los métodos de corrección
+            rebajaron sustancialmente la estimación original.
+          </figcaption>
+        </figure>
+
+        <h3>El meta-análisis de referencia</h3>
+        <div class="study">
+          <p class="cite"><b>Sio, U. N., &amp; Lortie-Forgues, H. (2024).</b> The impact of creativity training on
+            creative performance: a meta-analytic review and critical evaluation of 5 decades of creativity
+            training studies. <i>Psychological Bulletin, 150</i>(5).</p>
+          <ul>
+            <li>169 estudios, 844 tamaños de efecto, incluidos 48 estudios no publicados (262 efectos).</li>
+            <li>Efecto sin corregir: <span class="d">0.53 DE</span>. Corregido: <span class="d">0.29–0.32 DE</span>.</li>
+            <li>Los meta-análisis previos ignoraron el impacto del sesgo de publicación y la calidad de los estudios.</li>
+          </ul>
+        </div>
+
+        <h3>Qué hay que entrenar exactamente</h3>
+        <div class="study">
+          <p class="cite"><b>Scott, G., Leritz, L. E., &amp; Mumford, M. D. (2004).</b> The effectiveness of creativity
+            training: A quantitative review. <i>Creativity Research Journal, 16</i>(4), 361–388.</p>
+          <p>70 estudios. Las ganancias generalizan entre criterios, contextos y poblaciones, y se
+            mantienen al controlar validez interna. Pero el diseño del programa importa más que su duración:</p>
+          <ul>
+            <li>Funcionan los programas centrados en <b>habilidades cognitivas y las heurísticas para aplicarlas</b>.</li>
+            <li>Funcionan con <b>ejercicios realistas y apropiados al dominio</b> del participante.</li>
+            <li>Rinden mucho menos las técnicas genéricas, los ejercicios lúdicos descontextualizados
+              y el enfoque de «liberar la imaginación».</li>
+          </ul>
+        </div>
+
+        <p class="pull">
+          El techo realista de un buen programa es 0.3 DE: pasar del percentil 50 al 62.
+          No es poco. Tampoco es lo que promete el folleto.
+        </p>
+
+        <h3>Meta-análisis por población</h3>
+        <p class="src">
+          Primaria — <a href="https://www.sciencedirect.com/science/article/pii/S1871187122001754">Revisión sistemática y meta-análisis de programas en educación primaria</a> (2022)<br>
+          Universitarios — <a href="https://www.sciencedirect.com/science/article/abs/pii/S1871187125000288">Meta-análisis multinivel, 29 estudios (2000–2024), 109 tamaños de efecto</a>: mejoras en fluidez, flexibilidad y originalidad<br>
+          Segundo orden — <a href="https://www.tandfonline.com/doi/full/10.1080/10400419.2026.2644245">Second-Order Meta-Analysis of the Creativity Research</a> (2026): proceso creativo r = .27, pensamiento divergente r = .14, e intervenciones educativas como el correlato modificable más fuerte, r = .20
+        </p>
+      </section>
+
+      <section class="sec" id="s-transferencia" data-title="Lo que no funciona">
+        <div class="sec-head"><span class="sec-num">03</span><h2>Transferencia lejana: la evidencia negativa</h2></div>
+        <p class="lede">
+          Mejorar en la tarea que entrenaste es trivial y ocurre casi siempre. Que eso se traslade
+          a otra capacidad no ocurre casi nunca.
+        </p>
+
+        <div class="study">
+          <p class="cite"><b>Melby-Lervåg, M., Redick, T. S., &amp; Hulme, C. (2016).</b> Working memory training does not
+            improve performance on measures of intelligence or other measures of “far transfer”.
+            <i>Perspectives on Psychological Science, 11</i>(4).</p>
+          <p>87 estudios, 145 experimentos independientes. Frente a grupos control <b>tratados</b>, no hay
+            evidencia convincente de mejora fiable en habilidad no verbal, habilidad verbal,
+            decodificación lectora, comprensión ni aritmética.</p>
+        </div>
+
+        <div class="study">
+          <p class="cite"><b>Sala, G., &amp; Gobet, F. (2017).</b> Does far transfer exist? Negative evidence from chess,
+            music, and working memory training. <i>Current Directions in Psychological Science</i>. Y
+            <b>Gobet &amp; Sala (2023)</b>, Cognitive training: A field in search of a phenomenon.</p>
+          <ul>
+            <li>El entrenamiento musical no mejora inteligencia, habilidad espacial, procesamiento
+              fonológico ni rendimiento académico.</li>
+            <li>El entrenamiento con videojuegos no mejora la habilidad cognitiva general.</li>
+            <li>Estimado contra grupo control activo, el efecto de transferencia lejana es
+              <b>cercano a cero</b> en memoria de trabajo, videojuegos, <i>exergames</i> y música.</li>
+          </ul>
+        </div>
+
+        <p class="pull">
+          Los tamaños de efecto están inversamente relacionados con la calidad del diseño
+          experimental. Cuanto mejor el control, más cerca de cero el resultado.
+          <cite>Sala &amp; Gobet · el patrón que define el campo</cite>
+        </p>
+
+        <p>A esto se suma un problema de potencia estadística: buena parte de los estudios positivos
+          está <b>severamente infrapotenciada</b>. Efectos pequeños medidos en muestras pequeñas generan
+          una literatura aparentemente favorable sin necesidad de invocar mala fe.</p>
+        <p class="src"><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4302828/">Reliable gains? Evidence for substantially underpowered designs in studies of working memory training transfer to fluid intelligence</a></p>
+      </section>
+
+      <section class="sec" id="s-funciona" data-title="Lo que sí funciona">
+        <div class="sec-head"><span class="sec-num">04</span><h2>Lo que sí mueve la aguja</h2></div>
+
+        <h3>Educación formal — la evidencia más fuerte que existe</h3>
+        <div class="study">
+          <p class="cite"><b>Ritchie, S. J., &amp; Tucker-Drob, E. M. (2018).</b> How much does education improve
+            intelligence? A meta-analysis. <i>Psychological Science, 29</i>(8).</p>
+          <ul>
+            <li>142 tamaños de efecto, 42 conjuntos de datos, <b>más de 600.000 participantes</b>.</li>
+            <li>Tres diseños cuasi-experimentales independientes: control del CI previo, cambios de
+              política de escolaridad obligatoria como variable instrumental, y regresión discontinua
+              por fecha de corte de entrada escolar. Los tres convergen.</li>
+            <li>Resultado: <span class="d">1–5 puntos de CI</span> por año adicional de educación, con evidencia de persistencia.</li>
+          </ul>
+        </div>
+        <p>La lectura práctica es incómoda para el mercado de la superación personal: el mecanismo
+          que mueve la aguja es la <b>adquisición sostenida y estructurada de conocimiento a lo largo de
+          años</b>. Estudiar algo difícil de verdad es la mejor «pastilla de inteligencia» disponible.</p>
+
+        <h3>Ejercicio físico — efecto real sobre función ejecutiva</h3>
+        <p>Varios meta-análisis recientes (2024–2026) convergen en efectos positivos del ejercicio
+          aeróbico sobre función ejecutiva, con el matiz de que el efecto se documenta sobre todo en
+          poblaciones mayores o clínicas, no como aumento estructural de <i>g</i> en adultos jóvenes sanos.</p>
+        <p class="src">
+          <a href="https://pubmed.ncbi.nlm.nih.gov/39326271/">Adultos sanos de mediana edad y mayores (≥45): meta-análisis de ECA</a><br>
+          <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12289702/">Red de meta-análisis: 58 ECA, 4.349 adultos mayores, 5 modalidades de ejercicio</a><br>
+          <a href="https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2024.1376354/full">Niños y adolescentes con TDAH: mejoras en función ejecutiva</a>
+        </p>
+
+        <h3>Sueño — el multiplicador más subestimado</h3>
+        <div class="study">
+          <p class="cite"><b>Lowe et al.</b>, The neurocognitive consequences of sleep restriction: A meta-analytic
+            review. <i>Neuroscience &amp; Biobehavioral Reviews</i> — 61 estudios, 71 poblaciones.</p>
+          <ul>
+            <li>La restricción de sueño deteriora selectivamente <b>atención sostenida, función ejecutiva
+              y memoria a largo plazo</b>, con relación dosis-respuesta.</li>
+            <li>Efecto perjudicial <b>moderado-grande</b> sobre funciones ejecutivas nucleares: máximo en
+              memoria de trabajo, después control inhibitorio y flexibilidad cognitiva.</li>
+            <li>La magnitud del efecto <b>aumenta con la edad</b>.</li>
+          </ul>
+        </div>
+        <p>Dormir cinco horas no te hace permanentemente menos inteligente. Te hace rendir como una
+          versión considerablemente peor de ti mismo, todos los días.</p>
+      </section>
+
+      <section class="sec" id="s-palancas" data-title="Palancas de estado">
+        <div class="sec-head"><span class="sec-num">05</span><h2>Palancas de estado: rendir más hoy</h2></div>
+        <p class="lede">
+          No cambian tu capacidad. Cambian el rendimiento que extraes de ella en una sesión concreta.
+          Son las intervenciones con mejor relación coste-beneficio de toda esta revisión.
+        </p>
+
+        <h3>Incubación</h3>
+        <div class="study">
+          <p class="cite"><b>Sio, U. N., &amp; Ormerod, T. C. (2009).</b> Does incubation enhance problem solving?
+            A meta-analytic review. <i>Psychological Bulletin, 135</i>(1), 94–120.</p>
+          <ul>
+            <li>Efecto de incubación positivo y significativo en los tres tipos de problema estudiados.</li>
+            <li>Las tareas de <b>pensamiento divergente se benefician más</b> que los problemas de
+              insight lingüístico o visual.</li>
+            <li>Moderador clave: cuanto más largo el periodo de preparación —cuanto más has peleado con
+              el problema antes de la pausa— mayor el efecto.</li>
+          </ul>
+        </div>
+        <p>El atasco previo no es tiempo perdido: es el requisito. Trabaja hasta el bloqueo genuino,
+          haz una pausa con una tarea poco demandante, vuelve.</p>
+
+        <h3>El punto dulce del inicio del sueño</h3>
+        <div class="study">
+          <p class="cite"><b>Lacaux, C., et al. (2021).</b> Sleep onset is a creative sweet spot.
+            <i>Science Advances, 7</i>(50).</p>
+          <ul>
+            <li>103 participantes resolvían problemas matemáticos que escondían una regla oculta.</li>
+            <li>Pasar al menos 15 segundos en fase N1 —la transición vigilia-sueño— <b>triplicó</b> la
+              probabilidad de descubrir la regla: <span class="d">83 % vs 30 %</span> frente a quienes permanecieron despiertos.</li>
+            <li>El efecto <b>desaparece al alcanzar sueño profundo</b>. Firma óptima: alfa moderado, delta bajo.</li>
+          </ul>
+        </div>
+        <p>La siesta corta de Edison y Dalí —dormitar sosteniendo un objeto que te despierte al
+          caerse— tiene ahora respaldo experimental. Carga el problema, dormita 10–20 minutos, anota
+          lo primero que aparezca al despertar.</p>
+
+        <h3>Caminar</h3>
+        <div class="study">
+          <p class="cite"><b>Oppezzo, M., &amp; Schwartz, D. L. (2014).</b> Give your ideas some legs: The positive
+            effect of walking on creative thinking. <i>JEP: Learning, Memory, and Cognition, 40</i>(4), 1142–1152.</p>
+          <ul>
+            <li>Caminar aumentó el pensamiento divergente (usos alternativos de Guilford) en el
+              <b>81 %</b> de los participantes; el convergente (Remote Associates Test) solo en el <b>23 %</b>.</li>
+            <li>El efecto <b>persiste al sentarse después</b> de caminar.</li>
+            <li>Se replica en cinta de correr mirando una pared y caminando al aire libre: el mecanismo
+              no es el entorno, es el acto de caminar.</li>
+          </ul>
+        </div>
+        <p>Atención a la asimetría: caminar ayuda a <b>generar</b> ideas, no a <b>elegir</b> la correcta.
+          Para converger, siéntate.</p>
+
+        <h3>Meditación: el tipo importa</h3>
+        <div class="study">
+          <p class="cite"><b>Colzato, L. S., et al.</b> Meditate to create: The impact of focused-attention and
+            open-monitoring training on convergent and divergent thinking. <i>Frontiers in Psychology</i>.</p>
+          <ul>
+            <li><b>Monitorización abierta</b> (observar sin fijar la atención) → favorece el pensamiento divergente.</li>
+            <li><b>Atención focalizada</b> (concentración en un objeto) → favorece la convergencia hacia una solución única.</li>
+          </ul>
+        </div>
+        <p>El meta-análisis de 2023 en <i>Psychonomic Bulletin &amp; Review</i> confirma un efecto positivo global
+          mindfulness→creatividad, con moderadores significativos: duración de la intervención, tipo de
+          tarea creativa y tipo de grupo control. La faceta de monitorización abierta se asocia mucho
+          más fuertemente al pensamiento divergente que la mera conciencia plena.</p>
+        <p class="src"><a href="https://link.springer.com/article/10.3758/s13423-023-02327-w">Meta-analytical review of the impact of mindfulness on creativity</a></p>
+      </section>
+
+      <section class="sec" id="s-biologicas" data-title="Vías biológicas">
+        <div class="sec-head"><span class="sec-num">06</span><h2>Intervenciones biológicas: promesa con matices</h2></div>
+
+        <h3>Estimulación transcraneal por corriente directa</h3>
+        <div class="study">
+          <p class="cite"><b>Revisión sistemática y meta-análisis cross-domain (2025).</b>
+            <i>Neuroscience &amp; Biobehavioral Reviews</i> — 145 estudios con control sham, 8.399 participantes
+            sanos de 18 a 40 años.</p>
+          <ul>
+            <li>Solo la <b>tDCS anodal frontal lateral izquierda</b> promueve creatividad de forma consistente.</li>
+            <li>Esa misma región mejora también procesamiento semántico, recuperación episódica y
+              selección de respuesta entre alternativas en competencia.</li>
+            <li>Otro meta-análisis (32 estudios): efectos <b>pequeños positivos</b> de la tDCS anodal, ninguno
+              para la catodal, sobre todo en tareas convergentes.</li>
+          </ul>
+        </div>
+        <p>Estado: interés científico real, <b>no</b> recomendación práctica. Efectos pequeños, muy
+          dependientes del montaje de electrodos, y sin datos de seguridad y beneficio en uso
+          doméstico prolongado.</p>
+
+        <h3>Microdosis de psicodélicos</h3>
+        <div class="study">
+          <p class="cite"><b>Mega-análisis de tres ECA doble ciego</b> (171 participantes, psilocibina, 2025);
+            estudios de LSD en <i>Psychopharmacology</i> (2024) y <i>Translational Psychiatry</i> (2022).</p>
+          <ul>
+            <li>La microdosis activa aumentó el <b>ratio de originalidad</b> (originalidad/fluidez), pero no
+              otras medidas de pensamiento divergente ni el pensamiento convergente.</li>
+            <li>LSD, agudo y sostenido: sin efecto sobre el test de usos alternativos ni el RAT.</li>
+            <li>Psilocibina en dosis bajas: efectos subjetivos y cambios en EEG, <b>sin</b> evidencia de mejora
+              en bienestar, creatividad o cognición.</li>
+            <li>Los <b>efectos placebo son fuertes</b>, especialmente en usuarios previos de psicodélicos,
+              lo que explica buena parte del entusiasmo anecdótico.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="sec" id="s-ia" data-title="IA generativa">
+        <div class="sec-head"><span class="sec-num">07</span><h2>IA generativa: el hallazgo incómodo</h2></div>
+        <div class="study">
+          <p class="cite"><b>Doshi &amp; Hauser.</b> Generative AI enhances individual creativity but reduces the
+            collective diversity of novel content. <i>Science Advances</i>.</p>
+          <ul>
+            <li>El acceso a ideas generadas por IA hace que las historias se evalúen como <b>más creativas,
+              mejor escritas y más disfrutables</b>, sobre todo entre los escritores menos creativos de base.</li>
+            <li>Pero las historias asistidas por IA <b>se parecen más entre sí</b> que las escritas solo por
+              humanos: sube la media individual y baja la diversidad colectiva.</li>
+          </ul>
+        </div>
+        <p>Los modelos tienden a reproducir ideas vistas durante el entrenamiento antes que a generar
+          ideas genuinamente nuevas, y carecen del conocimiento tácito que exige el razonamiento
+          composicional de varios pasos.</p>
+        <p class="pull">
+          Usa la IA para ampliar tu espacio de búsqueda <i>después</i> de generar tus propias ideas.
+          Si la usas antes, anclas tu pensamiento en la distribución del modelo.
+        </p>
+        <p class="src">
+          <a href="https://www.science.org/doi/10.1126/sciadv.adn5290">Doshi &amp; Hauser, <i>Science Advances</i></a><br>
+          <a href="https://arxiv.org/abs/2505.17241">Generative AI and Creativity: A Systematic Literature Review and Meta-Analysis</a> (2025)<br>
+          <a href="https://dl.acm.org/doi/full/10.1145/3746175.3746189">Has AI Surpassed Humans in Creative Idea Generation? A Meta-Analysis</a> — 15 artículos, 17 estudios, 115 tamaños de efecto<br>
+          <a href="https://dl.acm.org/doi/10.1145/3715928.3737481">How AI ideas affect the creativity, diversity, and evolution of human ideas</a>
+        </p>
+      </section>
+
+      <section class="sec" id="s-catalogo" data-title="Catálogo">
+        <div class="sec-head"><span class="sec-num">08</span><h2>Catálogo de intervenciones</h2></div>
+        <p class="lede">
+          Todo lo anterior, ordenado por veredicto. Filtra para ver en qué merece la pena invertir tiempo.
+        </p>
+        <div class="filters" role="group" aria-label="Filtrar por veredicto">
+          <button class="chip" data-f="all" aria-pressed="true">Todas <span class="c" id="c-all"></span></button>
+          <button class="chip" data-f="good" aria-pressed="false">Funciona <span class="c" id="c-good"></span></button>
+          <button class="chip" data-f="mid" aria-pressed="false">Matizado <span class="c" id="c-mid"></span></button>
+          <button class="chip" data-f="bad" aria-pressed="false">Sin evidencia <span class="c" id="c-bad"></span></button>
+        </div>
+        <div class="cat" id="cat"></div>
+        <p class="empty" id="cat-empty" hidden>No hay intervenciones en esta categoría.</p>
+      </section>
+
+      <section class="sec" id="s-metodo" data-title="Cómo leerlo">
+        <div class="sec-head"><span class="sec-num">09</span><h2>Cómo leer este campo sin que te engañen</h2></div>
+        <ol class="caveats">
+          <li><div><b>Sesgo de publicación masivo.</b> En creatividad, corregirlo reduce el efecto casi a la
+            mitad. Desconfía de cualquier meta-análisis que no lo evalúe explícitamente.</div></li>
+          <li><div><b>Grupo control activo o nada.</b> En entrenamiento cognitivo el tamaño de efecto es
+            inversamente proporcional a la calidad del control. Con control pasivo mides expectativa,
+            no entrenamiento.</div></li>
+          <li><div><b>Transferencia cercana ≠ transferencia lejana.</b> Mejorar en el test que entrenaste es
+            casi automático; que eso se traslade a otra capacidad casi nunca ocurre.</div></li>
+          <li><div><b>Las medidas de creatividad son limitadas.</b> Fluidez, flexibilidad y originalidad en un
+            test de usos alternativos no equivalen a creatividad real de dominio. Los efectos entrenados
+            se miden casi siempre en el primer nivel.</div></li>
+          <li><div><b>Infrapotenciación.</b> Muchos estudios positivos tienen muestras pequeñas, y en muestras
+            pequeñas los efectos «significativos» suelen ser sobreestimaciones.</div></li>
+        </ol>
+      </section>
+
+      <section class="sec bib" id="s-bibliografia" data-title="Bibliografía">
+        <div class="sec-head"><span class="sec-num">10</span><h2>Bibliografía</h2></div>
+        <div id="bib"></div>
+      </section>
+
+      <footer>
+        <p>Revisión elaborada a partir de meta-análisis y ensayos controlados publicados entre 1984 y 2026.
+          Los tamaños de efecto citados son los que reportan las fuentes originales; cuando una fuente no
+          publica una estimación puntual, aquí no se inventa ninguna. Última actualización: 20 de septiembre de 2026.</p>
+      </footer>
+    </main>
+  </div>
+</div>
+
+<button class="tgl" id="tgl" aria-label="Cambiar tema" title="Cambiar tema">◐</button>
+<div class="tip" id="tip" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- navigation ---------- */
+  var secs = Array.prototype.slice.call(document.querySelectorAll(".sec"));
+  var railList = document.getElementById("rail-list");
+  var stripList = document.getElementById("strip-list");
+  secs.forEach(function(s, i){
+    var num = String(i+1).padStart(2,"0");
+    var t = s.getAttribute("data-title");
+    railList.insertAdjacentHTML("beforeend",
+      '<li><a href="#'+s.id+'" data-for="'+s.id+'"><span>'+num+'</span><span>'+t+'</span></a></li>');
+    stripList.insertAdjacentHTML("beforeend",
+      '<li><a href="#'+s.id+'" data-for="'+s.id+'">'+num+' · '+t+'</a></li>');
+  });
+  var links = Array.prototype.slice.call(document.querySelectorAll("[data-for]"));
+  function setActive(id){
+    links.forEach(function(a){
+      var on = a.getAttribute("data-for") === id;
+      a.classList.toggle("active", on);
+      if(on && a.parentNode.parentNode === stripList){
+        var p = a.parentNode, box = stripList.parentNode;
+        var want = p.offsetLeft - box.clientWidth/2 + p.clientWidth/2;
+        box.scrollTo({left: Math.max(0, want), behavior: "smooth"});
+      }
+    });
+  }
+  if("IntersectionObserver" in window){
+    var seen = {};
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ seen[e.target.id] = e.isIntersecting ? e.intersectionRatio : 0; });
+      var best = null, bestV = 0;
+      secs.forEach(function(s){ if((seen[s.id]||0) > bestV){ bestV = seen[s.id]; best = s.id; } });
+      if(best) setActive(best);
+    }, {rootMargin: "-15% 0px -55% 0px", threshold:[0, .25, .5, 1]});
+    secs.forEach(function(s){ io.observe(s); });
+  }
+  setActive(secs[0].id);
+
+  /* ---------- forest plot ---------- */
+  var DMAX = 1.0;
+  var pos = function(d){ return (d / DMAX) * 100; };
+  var studies = [
+    {k:"Rose & Lin", y:"1984", n:"1984 · 46 estudios", d:0.47, cls:"is-old",
+     note:"Primera síntesis cuantitativa del campo. No evaluó sesgo de publicación."},
+    {k:"Ma", y:"2006", n:"2006 · medidas ampliadas", d:0.76, cls:"is-old",
+     note:"Estimación máxima histórica, hoy considerada inflada."},
+    {k:"Sio & Lortie-Forgues", y:"2024", n:"2024 · sin corregir", d:0.53, cls:"is-raw",
+     note:"844 tamaños de efecto, 48 estudios no publicados incluidos."},
+    {k:"Sio & Lortie-Forgues", y:"2024", n:"2024 · corregido por sesgo", d:0.305, lo:0.29, hi:0.32, cls:"is-key",
+     note:"Rango 0.29–0.32 DE según el método de corrección aplicado. La mejor estimación disponible."}
+  ];
+  var rowsHost = document.getElementById("plot-rows");
+  studies.forEach(function(s, i){
+    var lab = '<div class="plabel"><b>'+s.k+'</b>'+s.n+'</div>';
+    var mk = "";
+    if(s.lo != null){
+      mk += '<div class="mk-bar" style="left:'+pos(s.lo)+'%;width:'+(pos(s.hi)-pos(s.lo))+'%"></div>';
+    }
+    mk += '<div class="mk-dot" tabindex="0" role="img" data-i="'+i+'" aria-label="'+s.k+' '+s.y+', d '+
+          (s.lo!=null ? s.lo+" a "+s.hi : s.d)+'" style="left:'+pos(s.d)+'%"></div>';
+    var txt = s.lo != null ? "0.29–0.32" : s.d.toFixed(2);
+    mk += '<div class="mk-val" style="left:calc('+pos(s.hi != null ? s.hi : s.d)+'% + 16px)">'+txt+'</div>';
+    rowsHost.insertAdjacentHTML("beforeend",
+      '<div class="prow '+s.cls+'">'+lab+
+      '<div class="ptrack">'+
+        gridLines()+mk+
+      '</div></div>');
+  });
+  function gridLines(){
+    return [0.2,0.5,0.8].map(function(t){
+      return '<div class="grid key" style="left:'+pos(t)+'%"></div>';
+    }).join("");
+  }
+
+  var axis = document.getElementById("axis");
+  [0,0.2,0.4,0.6,0.8,1.0].forEach(function(t){
+    axis.insertAdjacentHTML("beforeend",
+      '<div class="tick" style="left:'+pos(t)+'%"><i></i><span>'+t.toFixed(1)+'</span></div>');
+  });
+  var cohen = document.getElementById("cohen");
+  [[0.2,"pequeño"],[0.5,"medio"],[0.8,"grande"]].forEach(function(c){
+    cohen.insertAdjacentHTML("beforeend",'<span style="left:'+pos(c[0])+'%">'+c[1]+'</span>');
+  });
+
+  var drop = document.getElementById("drop");
+  var a = pos(0.305), b = pos(0.53);
+  drop.innerHTML = '<div class="brk" style="left:'+a+'%;width:'+(b-a)+'%"></div>'+
+    '<div class="lbl" style="left:'+((a+b)/2)+'%">−43 % al corregir el sesgo de publicación</div>';
+
+  var tip = document.getElementById("tip");
+  function showTip(el){
+    var s = studies[+el.getAttribute("data-i")];
+    var val = s.lo != null ? "d = "+s.lo+"–"+s.hi : "d = "+s.d.toFixed(2);
+    tip.innerHTML = "<b>"+s.k+" ("+s.y+")</b>"+val+" · "+s.n+"<br>"+s.note;
+    var r = el.getBoundingClientRect();
+    tip.style.left = Math.min(Math.max(r.left + r.width/2, 130), window.innerWidth - 130) + "px";
+    tip.style.top = r.top + "px";
+    tip.classList.add("on");
+  }
+  function hideTip(){ tip.classList.remove("on"); }
+  rowsHost.addEventListener("mouseover", function(e){
+    var el = e.target.closest(".mk-dot"); if(el) showTip(el);
+  });
+  rowsHost.addEventListener("mouseout", function(e){
+    if(e.target.closest(".mk-dot")) hideTip();
+  });
+  rowsHost.addEventListener("focusin", function(e){
+    var el = e.target.closest(".mk-dot"); if(el) showTip(el);
+  });
+  rowsHost.addEventListener("focusout", hideTip);
+  window.addEventListener("scroll", hideTip, {passive:true});
+
+  /* ---------- catalogue ---------- */
+  var items = [
+    {v:"good", t:"Educación formal sostenida",
+     e:"1–5 pts CI / año", s:"Ritchie & Tucker-Drob 2018 · >600.000 participantes",
+     p:"Estudio estructurado y prolongado en un dominio exigente. Es la intervención con mejor evidencia causal sobre capacidad cognitiva, y también la más lenta."},
+    {v:"good", t:"Entrenamiento creativo de dominio",
+     e:"d ≈ 0.30", s:"Sio & Lortie-Forgues 2024 · 169 estudios",
+     p:"Heurísticas explícitas —analogía, inversión, restricciones, combinación conceptual— practicadas sobre problemas reales de tu campo, no sobre acertijos genéricos."},
+    {v:"good", t:"Incubación deliberada",
+     e:"efecto positivo", s:"Sio & Ormerod 2009 · meta-análisis",
+     p:"Pelea con el problema hasta el atasco real, haz una pausa con tarea poco demandante, retómalo. La preparación larga es el moderador clave."},
+    {v:"good", t:"Siesta en fase N1",
+     e:"83 % vs 30 %", s:"Lacaux et al. 2021 · Science Advances",
+     p:"Carga el problema, dormita 10–20 minutos sin llegar a sueño profundo y anota lo primero al despertar. Triplicó la tasa de insight."},
+    {v:"good", t:"Caminar para ideación",
+     e:"+81 % divergente", s:"Oppezzo & Schwartz 2014",
+     p:"Genera ideas caminando; vuelve a sentarte para evaluarlas. El beneficio es de generación, no de selección, y persiste un rato tras la caminata."},
+    {v:"good", t:"Higiene del sueño (7–9 h)",
+     e:"efecto moderado-grande", s:"Lowe et al. · 61 estudios",
+     p:"No sube tu capacidad: evita que la pierdas. Relación dosis-respuesta y magnitud creciente con la edad."},
+    {v:"good", t:"Ejercicio aeróbico regular",
+     e:"mejora función ejecutiva", s:"Meta-análisis 2024–2026",
+     p:"Efecto documentado sobre todo en adultos mayores y poblaciones clínicas. Protege y optimiza el rendimiento; no aumenta g estructuralmente."},
+    {v:"mid", t:"Meditación de monitorización abierta",
+     e:"efecto positivo, moderado por diseño", s:"Colzato et al. · meta-análisis 2023",
+     p:"Para fases divergentes. Usa atención focalizada en las fases de convergencia. La faceta de monitorización abierta importa más que la conciencia plena genérica."},
+    {v:"mid", t:"Estimulación transcraneal (tDCS)",
+     e:"efectos pequeños", s:"145 estudios sham-controlled · 2025",
+     p:"Solo la anodal frontal lateral izquierda muestra beneficio consistente. Interés científico real, no recomendación práctica para uso doméstico."},
+    {v:"mid", t:"Asistencia de IA generativa",
+     e:"sube individual, baja colectiva", s:"Doshi & Hauser · Science Advances",
+     p:"Mejora la calidad percibida de la producción individual, sobre todo en los menos creativos, a costa de homogeneizar el conjunto. Úsala después de idear, no antes."},
+    {v:"bad", t:"Microdosis de psicodélicos",
+     e:"solo ratio de originalidad", s:"3 ECA doble ciego · 171 participantes",
+     p:"Sin efecto sobre pensamiento convergente ni sobre el resto de medidas divergentes. Los efectos placebo son fuertes, en especial en usuarios previos."},
+    {v:"bad", t:"Entrenamiento de memoria de trabajo",
+     e:"≈ 0 (control activo)", s:"Melby-Lervåg et al. 2016 · 87 estudios",
+     p:"Mejora la tarea entrenada y poco más. Sin evidencia convincente de mejora en habilidad verbal, no verbal, lectura ni aritmética."},
+    {v:"bad", t:"Apps de brain training y dual n-back",
+     e:"≈ 0 (control activo)", s:"Gobet & Sala 2023",
+     p:"El tamaño de efecto cae conforme mejora el diseño experimental. No lo recomiendo como inversión de tiempo."},
+    {v:"bad", t:"Entrenamiento musical para subir el CI",
+     e:"sin efecto", s:"Sala & Gobet · meta-análisis",
+     p:"Sin efecto sobre inteligencia, habilidad espacial, procesamiento fonológico ni rendimiento académico. Aprende música porque quieres música."},
+    {v:"bad", t:"Videojuegos como entrenamiento cognitivo",
+     e:"sin efecto", s:"Sala et al. · meta-análisis",
+     p:"No mejoran la habilidad cognitiva general. Los efectos observados se concentran en tareas muy parecidas a las entrenadas."}
+  ];
+  var LBL = {good:"Funciona", mid:"Matizado", bad:"Sin evidencia"};
+  var cat = document.getElementById("cat");
+  items.forEach(function(it){
+    cat.insertAdjacentHTML("beforeend",
+      '<article class="item" data-v="'+it.v+'">'+
+        '<div><span class="pill '+it.v+'">'+LBL[it.v]+'</span></div>'+
+        '<div><h4>'+it.t+'</h4><p>'+it.p+'</p></div>'+
+        '<div class="ev"><b>'+it.e+'</b>'+it.s+'</div>'+
+      '</article>');
+  });
+  ["all","good","mid","bad"].forEach(function(k){
+    var n = k === "all" ? items.length : items.filter(function(i){ return i.v === k; }).length;
+    document.getElementById("c-"+k).textContent = n;
+  });
+  var chips = Array.prototype.slice.call(document.querySelectorAll(".chip"));
+  var cards = Array.prototype.slice.call(document.querySelectorAll(".item"));
+  var empty = document.getElementById("cat-empty");
+  chips.forEach(function(c){
+    c.addEventListener("click", function(){
+      var f = c.getAttribute("data-f");
+      chips.forEach(function(o){ o.setAttribute("aria-pressed", String(o === c)); });
+      var shown = 0;
+      cards.forEach(function(card){
+        var on = f === "all" || card.getAttribute("data-v") === f;
+        card.hidden = !on; if(on) shown++;
+      });
+      empty.hidden = shown > 0;
+    });
+  });
+
+  /* ---------- bibliography ---------- */
+  var bib = [
+    ["Entrenamiento de la creatividad", [
+      ["Sio, U. N., & Lortie-Forgues, H. (2024)","Psychological Bulletin, 150(5)","https://repository.lboro.ac.uk/articles/journal_contribution/25308322"],
+      ["Scott, G., Leritz, L. E., & Mumford, M. D. (2004)","Creativity Research Journal, 16(4), 361–388","https://www.tandfonline.com/doi/abs/10.1080/10400410409534549"],
+      ["Second-Order Meta-Analysis of the Creativity Research (2026)","Creativity Research Journal","https://www.tandfonline.com/doi/full/10.1080/10400419.2026.2644245"],
+      ["Creativity training programs in primary education (2022)","Thinking Skills and Creativity","https://www.sciencedirect.com/science/article/pii/S1871187122001754"],
+      ["Training programs and university students’ creativity (2025)","Multi-level meta-analysis","https://www.sciencedirect.com/science/article/abs/pii/S1871187125000288"]
+    ]],
+    ["Inteligencia y transferencia", [
+      ["Ritchie, S. J., & Tucker-Drob, E. M. (2018)","Psychological Science, 29(8)","https://journals.sagepub.com/doi/abs/10.1177/0956797618774253"],
+      ["Melby-Lervåg, M., Redick, T. S., & Hulme, C. (2016)","Perspectives on Psychological Science, 11(4)","https://journals.sagepub.com/doi/10.1177/1745691616635612"],
+      ["Sala, G., & Gobet, F. (2017)","Current Directions in Psychological Science","https://doi.org/10.1177/0963721417712760"],
+      ["Gobet, F., & Sala, G. (2023)","Cognitive training: A field in search of a phenomenon","https://journals.sagepub.com/doi/full/10.1177/17456916221091830"],
+      ["Sala & Gobet — music training meta-analysis","Educational Research Review","https://www.sciencedirect.com/science/article/pii/S1747938X16300641"],
+      ["Reliable gains? Underpowered designs in WM training transfer","PMC","https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4302828/"]
+    ]],
+    ["Procesos y estados", [
+      ["Sio, U. N., & Ormerod, T. C. (2009)","Psychological Bulletin, 135(1), 94–120","https://gwern.net/doc/psychology/writing/2009-sio.pdf"],
+      ["Lacaux, C., et al. (2021)","Science Advances, 7(50)","https://www.science.org/doi/10.1126/sciadv.abj5866"],
+      ["Oppezzo, M., & Schwartz, D. L. (2014)","JEP: LMC, 40(4), 1142–1152","https://pubmed.ncbi.nlm.nih.gov/24749966/"],
+      ["Colzato, L. S., et al.","Meditate to create — Frontiers in Psychology","https://ncbi.nlm.nih.gov/pmc/articles/PMC3328799/"],
+      ["Mindfulness and creativity: meta-analytical review (2023)","Psychonomic Bulletin & Review","https://link.springer.com/article/10.3758/s13423-023-02327-w"]
+    ]],
+    ["Salud y cognición", [
+      ["Lowe et al.","The neurocognitive consequences of sleep restriction","https://pubmed.ncbi.nlm.nih.gov/28757454/"],
+      ["Sleep loss and core executive functions (2025)","Sleep Medicine Reviews","https://www.sciencedirect.com/science/article/abs/pii/S1087079225001169"],
+      ["Aerobic exercise and executive function, adults ≥45 (2024)","PubMed","https://pubmed.ncbi.nlm.nih.gov/39326271/"],
+      ["Network meta-analysis of exercise modalities in older adults (2025)","PMC","https://pmc.ncbi.nlm.nih.gov/articles/PMC12289702/"]
+    ]],
+    ["Intervenciones biológicas", [
+      ["tDCS cross-domain meta-analysis (2025)","Neuroscience & Biobehavioral Reviews","https://pubmed.ncbi.nlm.nih.gov/40446948/"],
+      ["Microdosing psilocybin and creativity: three double-blind RCTs (2025)","PubMed","https://pubmed.ncbi.nlm.nih.gov/41187880/"],
+      ["Microdosing with psilocybin mushrooms (2022)","Translational Psychiatry","https://www.nature.com/articles/s41398-022-02039-0"],
+      ["Multimodal creativity assessments following LSD microdosing (2024)","Psychopharmacology","https://link.springer.com/article/10.1007/s00213-024-06680-z"]
+    ]],
+    ["IA y creatividad", [
+      ["Doshi & Hauser","Science Advances","https://www.science.org/doi/10.1126/sciadv.adn5290"],
+      ["Generative AI and Creativity: review and meta-analysis (2025)","arXiv","https://arxiv.org/abs/2505.17241"],
+      ["Has AI Surpassed Humans in Creative Idea Generation?","ACM ECCE","https://dl.acm.org/doi/full/10.1145/3746175.3746189"],
+      ["How AI ideas affect the creativity and diversity of human ideas","ACM Collective Intelligence","https://dl.acm.org/doi/10.1145/3715928.3737481"]
+    ]]
+  ];
+  var total = bib.reduce(function(n,g){ return n + g[1].length; }, 0);
+  document.getElementById("refcount").textContent = total + " referencias";
+  var bibHost = document.getElementById("bib");
+  bib.forEach(function(group){
+    var html = '<h3>'+group[0]+'</h3><ol>';
+    group[1].forEach(function(r){
+      html += '<li><b>'+r[0]+'</b> · '+r[1]+'<br><a href="'+r[2]+'">'+r[2]+'</a></li>';
+    });
+    bibHost.insertAdjacentHTML("beforeend", html + '</ol>');
+  });
+
+  /* ---------- theme toggle ---------- */
+  var root = document.documentElement, tgl = document.getElementById("tgl");
+  try{ var saved = localStorage.getItem("ci-theme"); if(saved) root.setAttribute("data-theme", saved); }catch(e){}
+  tgl.addEventListener("click", function(){
+    var cur = root.getAttribute("data-theme");
+    var dark = cur ? cur === "dark"
+      : window.matchMedia("(prefers-color-scheme: dark)").matches;
+    var next = dark ? "light" : "dark";
+    root.setAttribute("data-theme", next);
+    try{ localStorage.setItem("ci-theme", next); }catch(e){}
+  });
+})();
+</script>
