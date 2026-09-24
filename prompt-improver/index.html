@@ -1,0 +1,1045 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Taller de Prompts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --bg: #f3f5f9;
+    --surface: #ffffff;
+    --surface-2: #f8f9fc;
+    --ink: #172031;
+    --muted: #5a6478;
+    --rule: #dce1ea;
+    --accent: #2f55d4;
+    --accent-ink: #ffffff;
+    --accent-soft: #e7ecfc;
+    --mark: #ffe45c;
+    --mark-ink: #3a3000;
+    --ok: #1f8a5b;
+    --ok-soft: #e3f4ec;
+    --warn: #a86a12;
+    --warn-soft: #fbf0dc;
+    --bad: #c2413a;
+    --bad-soft: #fbe6e4;
+    --shadow: 0 1px 2px rgba(23, 32, 49, .06), 0 4px 16px rgba(23, 32, 49, .05);
+    --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+    --font-body: "Source Sans 3", "Segoe UI", system-ui, -apple-system, sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+    --radius: 10px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --bg: #0f141d;
+      --surface: #171e2a;
+      --surface-2: #131925;
+      --ink: #e6eaf2;
+      --muted: #98a2b5;
+      --rule: #2a3446;
+      --accent: #7d9bff;
+      --accent-ink: #0d1426;
+      --accent-soft: #1d2744;
+      --mark: #e3c93a;
+      --mark-ink: #1f1a00;
+      --ok: #4cc38a;
+      --ok-soft: #15291f;
+      --warn: #e0a84a;
+      --warn-soft: #2d2413;
+      --bad: #f07a72;
+      --bad-soft: #321a19;
+      --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 4px 16px rgba(0, 0, 0, .25);
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --bg: #0f141d;
+    --surface: #171e2a;
+    --surface-2: #131925;
+    --ink: #e6eaf2;
+    --muted: #98a2b5;
+    --rule: #2a3446;
+    --accent: #7d9bff;
+    --accent-ink: #0d1426;
+    --accent-soft: #1d2744;
+    --mark: #e3c93a;
+    --mark-ink: #1f1a00;
+    --ok: #4cc38a;
+    --ok-soft: #15291f;
+    --warn: #e0a84a;
+    --warn-soft: #2d2413;
+    --bad: #f07a72;
+    --bad-soft: #321a19;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 4px 16px rgba(0, 0, 0, .25);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font: 16px/1.55 var(--font-body);
+    padding-inline: 16px;
+    padding-block: 28px 48px;
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; display: grid; gap: 24px; }
+
+  header.top { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px 24px; }
+  h1 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.9rem, 4vw, 2.6rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin: 0;
+    text-wrap: balance;
+  }
+  h1 .hl { background: linear-gradient(transparent 58%, var(--mark) 58%, var(--mark) 92%, transparent 92%); padding-inline: 2px; }
+  .lede { margin: 6px 0 0; color: var(--muted); max-width: 62ch; }
+  h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.2rem;
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+  .eyebrow {
+    font-size: .74rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: var(--muted);
+  }
+
+  .bench { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+  @media (max-width: 860px) { .bench { grid-template-columns: minmax(0, 1fr); } }
+
+  .panel {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 20px;
+    display: grid;
+    gap: 16px;
+    min-width: 0;
+  }
+  .panel-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 16px; }
+
+  label.field { display: grid; gap: 6px; font-weight: 600; font-size: .9rem; }
+  textarea, input[type="password"], input[type="text"], select {
+    font: inherit;
+    color: var(--ink);
+    background: var(--surface-2);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    padding: 10px 12px;
+    width: 100%;
+  }
+  textarea#prompt {
+    font-family: var(--font-mono);
+    font-size: .92rem;
+    line-height: 1.6;
+    min-height: 220px;
+    resize: vertical;
+  }
+  textarea:focus-visible, input:focus-visible, select:focus-visible, button:focus-visible, .tab:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+  .meta { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: .85rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: .72rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
+    background: var(--mark); color: var(--mark-ink);
+    padding: 1px 8px; border-radius: 4px;
+  }
+
+  .options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  @media (max-width: 480px) { .options { grid-template-columns: minmax(0, 1fr); } }
+
+  .actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  button {
+    font: inherit;
+    font-weight: 600;
+    border-radius: 8px;
+    padding: 10px 16px;
+    cursor: pointer;
+    border: 1px solid var(--rule);
+    background: var(--surface);
+    color: var(--ink);
+    transition: background .15s, border-color .15s, transform .05s;
+  }
+  button:hover:not(:disabled) { border-color: var(--accent); }
+  button:active:not(:disabled) { transform: translateY(1px); }
+  button:disabled { opacity: .55; cursor: not-allowed; }
+  button.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+  button.primary:hover:not(:disabled) { filter: brightness(1.08); }
+  button.ghost { background: transparent; border-color: transparent; color: var(--muted); padding-inline: 10px; }
+  button.ghost:hover:not(:disabled) { color: var(--ink); border-color: var(--rule); }
+  button.small { padding: 6px 12px; font-size: .88rem; }
+
+  .backend { font-size: .88rem; color: var(--muted); display: grid; gap: 10px; }
+  .backend details { border: 1px dashed var(--rule); border-radius: 8px; padding: 10px 12px; }
+  .backend summary { cursor: pointer; font-weight: 600; color: var(--ink); }
+  .backend .keyrow { display: grid; gap: 10px; margin-top: 10px; }
+  .check { display: flex; gap: 8px; align-items: center; font-weight: 400; }
+
+  /* Diagnóstico */
+  .score { display: grid; grid-template-columns: auto 1fr; gap: 4px 16px; align-items: center; }
+  .score-num {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 3.4rem;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.03em;
+  }
+  .score-num small { font-size: 1rem; color: var(--muted); font-weight: 500; letter-spacing: 0; }
+  .score-label { font-weight: 600; }
+  .meter { display: grid; grid-template-columns: repeat(20, 1fr); gap: 3px; grid-column: 1 / -1; margin-top: 6px; }
+  .meter i { height: 10px; border-radius: 2px; background: var(--rule); }
+  .meter i.on { background: var(--level, var(--accent)); }
+
+  ul.checks { list-style: none; margin: 0; padding: 0; display: grid; }
+  ul.checks li {
+    display: grid;
+    grid-template-columns: 5.6rem minmax(0, 1fr);
+    gap: 4px 12px;
+    padding: 10px 0;
+    border-top: 1px solid var(--rule);
+  }
+  ul.checks li:first-child { border-top: 0; }
+  .chip {
+    justify-self: start;
+    align-self: start;
+    font-size: .72rem; font-weight: 600; letter-spacing: .05em; text-transform: uppercase;
+    padding: 2px 8px; border-radius: 999px; white-space: nowrap;
+    margin-top: 2px;
+  }
+  .chip.ok { background: var(--ok-soft); color: var(--ok); }
+  .chip.partial { background: var(--warn-soft); color: var(--warn); }
+  .chip.missing { background: var(--bad-soft); color: var(--bad); }
+  .check-name { font-weight: 600; }
+  .check-name .w { font-weight: 400; color: var(--muted); font-size: .82rem; font-variant-numeric: tabular-nums; }
+  .check-tip { grid-column: 2; font-size: .9rem; color: var(--muted); }
+  .vague { font-size: .9rem; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .vague mark { background: var(--mark); color: var(--mark-ink); padding: 0 6px; border-radius: 3px; font-family: var(--font-mono); font-size: .82rem; }
+
+  /* Resultado */
+  .tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--rule); flex-wrap: wrap; }
+  .tab {
+    border: 0; border-radius: 0; background: transparent; color: var(--muted);
+    padding: 8px 12px; margin-bottom: -1px; border-bottom: 2px solid transparent;
+  }
+  .tab[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); }
+  .tab:hover:not(:disabled) { border-color: transparent; border-bottom-color: var(--rule); }
+  .tab[aria-selected="true"]:hover { border-bottom-color: var(--accent); }
+
+  .result-grid { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 20px; align-items: start; }
+  @media (max-width: 860px) { .result-grid { grid-template-columns: minmax(0, 1fr); } }
+
+  pre.out {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: .88rem;
+    line-height: 1.65;
+    white-space: pre-wrap;
+    word-break: break-word;
+    background: var(--surface-2);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    padding: 16px;
+    min-height: 180px;
+    max-height: 560px;
+    overflow: auto;
+  }
+  pre.out .ph { background: var(--accent-soft); color: var(--accent); border-radius: 3px; padding: 0 2px; }
+  pre.out.thinking { color: var(--muted); font-style: italic; }
+  .side { display: grid; gap: 16px; font-size: .95rem; }
+  .side h3 { font-size: .8rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 0 0 6px; }
+  .side ul { margin: 0; padding-left: 1.1rem; display: grid; gap: 6px; }
+  .compare {
+    display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+    font-variant-numeric: tabular-nums;
+  }
+  .compare .from { font-family: var(--font-display); font-size: 1.6rem; font-weight: 700; color: var(--muted); }
+  .compare .arrow { color: var(--muted); }
+  .compare .to { font-family: var(--font-display); font-size: 1.6rem; font-weight: 700; color: var(--ok); }
+  .status { font-size: .9rem; color: var(--muted); min-height: 1.4em; }
+  .status.err { color: var(--bad); }
+
+  .guide { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px 24px; font-size: .92rem; color: var(--muted); }
+  .guide p { margin: 0; }
+  .guide strong { color: var(--ink); }
+
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div>
+      <div class="eyebrow">Ingeniería de prompts</div>
+      <h1>Taller de <span class="hl">Prompts</span></h1>
+      <p class="lede">Pega tu prompt, revisa qué le falta y obtén una versión mejorada: con una plantilla estructurada al instante o reescrito por Claude.</p>
+    </div>
+  </header>
+
+  <div class="bench">
+    <!-- Editor -->
+    <section class="panel" aria-labelledby="editor-title">
+      <div class="panel-head">
+        <h2 id="editor-title">Tu prompt</h2>
+        <span id="example-badge" class="badge" hidden>Ejemplo</span>
+      </div>
+      <label class="sr-only" for="prompt">Texto del prompt</label>
+      <textarea id="prompt" spellcheck="true" placeholder="Escribe o pega aquí el prompt que quieres mejorar…"></textarea>
+      <div class="meta" aria-live="polite">
+        <span id="m-words">0 palabras</span>
+        <span id="m-chars">0 caracteres</span>
+        <span id="m-tokens">≈ 0 tokens</span>
+      </div>
+
+      <div class="options">
+        <label class="field" for="task-type">Tipo de tarea
+          <select id="task-type">
+            <option value="general">General</option>
+            <option value="redaccion">Redacción y contenido</option>
+            <option value="codigo">Programación</option>
+            <option value="analisis">Análisis y datos</option>
+            <option value="resumen">Resumen</option>
+            <option value="ideas">Lluvia de ideas</option>
+            <option value="educacion">Enseñanza y explicación</option>
+          </select>
+        </label>
+        <label class="field" for="detail">Estilo del prompt mejorado
+          <select id="detail">
+            <option value="conciso">Conciso</option>
+            <option value="detallado">Detallado</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="actions">
+        <button id="btn-claude" class="primary" type="button">Mejorar con Claude</button>
+        <button id="btn-stop" type="button" hidden>Detener</button>
+        <button id="btn-template" type="button">Plantilla estructurada</button>
+        <button id="btn-clear" class="ghost" type="button">Vaciar</button>
+      </div>
+
+      <div class="backend" id="backend">
+        <p id="backend-note">Comprobando cómo conectar con Claude…</p>
+        <details id="api-box" hidden>
+          <summary>Configurar clave de API de Anthropic</summary>
+          <div class="keyrow">
+            <label class="field" for="api-key">Clave de API
+              <input id="api-key" type="password" autocomplete="off" placeholder="sk-ant-…">
+            </label>
+            <label class="field" for="model">Modelo
+              <select id="model">
+                <option value="claude-opus-5">Claude Opus 5</option>
+                <option value="claude-sonnet-5">Claude Sonnet 5</option>
+                <option value="claude-haiku-4-5">Claude Haiku 4.5</option>
+              </select>
+            </label>
+            <label class="check" for="remember-key"><input id="remember-key" type="checkbox"> Recordar la clave en este navegador</label>
+            <p>La clave se envía solo a <code>api.anthropic.com</code> desde tu navegador. Úsala en equipos de confianza.</p>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- Diagnóstico -->
+    <section class="panel" aria-labelledby="diag-title">
+      <div class="panel-head">
+        <h2 id="diag-title">Diagnóstico</h2>
+        <span class="eyebrow">Análisis local, sin enviar datos</span>
+      </div>
+      <div class="score" aria-live="polite">
+        <div class="score-num" id="score-num">0<small>/100</small></div>
+        <div>
+          <div class="score-label" id="score-label">—</div>
+          <div class="meta" id="score-hint">Escribe un prompt para analizarlo.</div>
+        </div>
+        <div class="meter" id="meter" aria-hidden="true"></div>
+      </div>
+      <div class="vague" id="vague" hidden></div>
+      <ul class="checks" id="checks"></ul>
+    </section>
+  </div>
+
+  <!-- Resultado -->
+  <section class="panel" aria-labelledby="result-title">
+    <div class="panel-head">
+      <h2 id="result-title">Prompt mejorado</h2>
+      <div class="actions">
+        <button id="btn-copy" class="small" type="button">Copiar</button>
+        <button id="btn-use" class="small" type="button">Usar como borrador</button>
+        <button id="btn-again" class="small" type="button" hidden>Otra versión</button>
+      </div>
+    </div>
+    <div class="tabs" role="tablist" aria-label="Origen del resultado">
+      <button class="tab" role="tab" id="tab-template" aria-selected="true" aria-controls="out">Plantilla</button>
+      <button class="tab" role="tab" id="tab-claude" aria-selected="false" aria-controls="out">Con Claude</button>
+    </div>
+    <div class="result-grid">
+      <pre class="out" id="out" role="tabpanel" tabindex="0"></pre>
+      <aside class="side">
+        <div>
+          <h3>Puntuación</h3>
+          <div class="compare"><span class="from" id="cmp-from">0</span><span class="arrow">→</span><span class="to" id="cmp-to">0</span></div>
+        </div>
+        <div id="changes-box">
+          <h3 id="changes-title">Qué cambia</h3>
+          <ul id="changes"></ul>
+        </div>
+        <div id="questions-box" hidden>
+          <h3>Preguntas para afinar</h3>
+          <ul id="questions"></ul>
+        </div>
+      </aside>
+    </div>
+    <div class="status" id="status" role="status"></div>
+  </section>
+
+  <section class="panel" aria-labelledby="guide-title">
+    <h2 id="guide-title">Claves de un buen prompt</h2>
+    <div class="guide">
+      <p><strong>Pide una cosa concreta.</strong> Empieza con un verbo: «redacta», «compara», «resume». Di qué es un buen resultado.</p>
+      <p><strong>Explica el porqué.</strong> El contexto y el objetivo ayudan al modelo a elegir bien cuando tú no lo has previsto todo.</p>
+      <p><strong>Describe la salida.</strong> Formato, extensión y estructura: «tabla de 3 columnas», «máximo 120 palabras».</p>
+      <p><strong>Separa los datos.</strong> Envuelve el texto pegado entre etiquetas como <code>&lt;documento&gt;…&lt;/documento&gt;</code>.</p>
+      <p><strong>Muestra un ejemplo.</strong> Un ejemplo del resultado que buscas vale más que tres adjetivos.</p>
+      <p><strong>Di qué hacer, no solo qué evitar.</strong> «Usa un tono cercano» funciona mejor que «no seas formal».</p>
+    </div>
+  </section>
+</div>
+
+<script>
+(() => {
+  "use strict";
+
+  const SDK_URL = "https://cdn.jsdelivr.net/npm/@anthropic-ai/sdk@0.128.0/+esm";
+  const DRAFT_KEY = "taller-prompts:draft";
+  const API_KEY_KEY = "taller-prompts:api-key";
+  const EXAMPLE = "Escríbeme un email para mis clientes sobre el nuevo producto que sacamos. Que quede bien y sea interesante, con algo de gancho.";
+
+  const $ = (id) => document.getElementById(id);
+  const els = {
+    prompt: $("prompt"), taskType: $("task-type"), detail: $("detail"),
+    btnClaude: $("btn-claude"), btnStop: $("btn-stop"), btnTemplate: $("btn-template"), btnClear: $("btn-clear"),
+    btnCopy: $("btn-copy"), btnUse: $("btn-use"), btnAgain: $("btn-again"),
+    tabTemplate: $("tab-template"), tabClaude: $("tab-claude"),
+    out: $("out"), changes: $("changes"), changesTitle: $("changes-title"),
+    questions: $("questions"), questionsBox: $("questions-box"),
+    cmpFrom: $("cmp-from"), cmpTo: $("cmp-to"), status: $("status"),
+    scoreNum: $("score-num"), scoreLabel: $("score-label"), scoreHint: $("score-hint"),
+    meter: $("meter"), checks: $("checks"), vague: $("vague"),
+    exampleBadge: $("example-badge"),
+    backendNote: $("backend-note"), apiBox: $("api-box"), apiKey: $("api-key"), model: $("model"), rememberKey: $("remember-key"),
+    mWords: $("m-words"), mChars: $("m-chars"), mTokens: $("m-tokens"),
+  };
+
+  const store = {
+    get(k) { try { return localStorage.getItem(k); } catch { return null; } },
+    set(k, v) { try { localStorage.setItem(k, v); } catch { /* almacenamiento no disponible */ } },
+    del(k) { try { localStorage.removeItem(k); } catch { /* almacenamiento no disponible */ } },
+  };
+
+  // ---------------------------------------------------------------------------
+  // Análisis local
+  // ---------------------------------------------------------------------------
+  const norm = (s) => s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
+  const countWords = (s) => (s.trim().match(/\S+/g) || []).length;
+
+  const CRITERIA = [
+    {
+      id: "tarea", name: "Tarea clara", weight: 20,
+      re: /\b(escrib|redact|crea|genera|analiz|resum|explica|traduc|revis|corrig|compar|enumera|lista|disen|propon|sugier|calcul|clasific|extra[ei]|convier|optimiz|mejora|program|implement|respond|describ|elabor|prepar|haz|dame|ayudame|planific|evalu|write|create|generate|analy|summar|explain|translate|review|design|build|make|give)\w*/,
+      eval(t, w) { const v = this.re.test(t); return v && w >= 8 ? 1 : v || w >= 8 ? 0.5 : 0; },
+      tips: ["Empieza con un verbo de acción y di qué entregable esperas.", "Concreta el entregable: qué exactamente debe producir y cómo sabrás que está bien.", "Bien: la tarea se entiende."],
+    },
+    {
+      id: "contexto", name: "Contexto y propósito", weight: 15,
+      re: /\b(contexto|porque|ya que|para que|con el fin|objetivo|proposito|meta|situacion|antecedentes|trabajo (en|como)|mi (empresa|negocio|equipo|proyecto)|estoy|queremos|necesito|se trata de|background|because|goal|so that)\b/,
+      eval(t, w) { const v = this.re.test(t); return v && w >= 25 ? 1 : v || w >= 30 ? 0.5 : 0; },
+      tips: ["Explica la situación y para qué usarás el resultado.", "Añade más detalle: quién eres, qué tienes ya y qué intentas lograr.", "Bien: hay contexto suficiente."],
+    },
+    {
+      id: "rol", name: "Rol o perspectiva", weight: 10,
+      re: /\b(actua como|actuando como|eres (un|una)|asume el (rol|papel)|en el papel de|como (un|una) (experto|experta|especialista|profesor|profesora|consultor|consultora|abogado|abogada|medico|medica|editor|editora|redactor|redactora|programador|programadora|desarrollador|desarrolladora|analista|coach|disenador|disenadora)|you are|act as)\b/,
+      eval(t) { return this.re.test(t) ? 1 : 0; },
+      tips: ["Indica desde qué experiencia debe responder (p. ej., «actúa como editor de marketing»).", "", "Bien: el rol está definido."],
+    },
+    {
+      id: "audiencia", name: "Audiencia", weight: 10,
+      re: /\b(audiencia|publico objetivo|dirigid[oa] a|para (mis |nuestros |nuestras |los |las |un |una )?(clientes|usuarios|lectores|estudiantes|alumnos|ninos|principiantes|expertos|directivos|jefe|jefa|equipo|inversores|empleados|seguidores|pacientes)|lectores|nivel (principiante|basico|intermedio|avanzado)|audience)\b/,
+      eval(t) { return this.re.test(t) ? 1 : 0; },
+      tips: ["Di para quién es el resultado y qué nivel de conocimiento tiene.", "", "Bien: la audiencia está clara."],
+    },
+    {
+      id: "formato", name: "Formato de salida", weight: 15,
+      re: /\b(formato|tabla|lista|vinetas|json|markdown|csv|yaml|parrafos?|titulos?|titular|encabezados?|secciones|pasos|esquema|asunto|bullet|table|format|en (una )?frase)\b/,
+      eval(t) { return this.re.test(t) ? 1 : 0; },
+      tips: ["Describe cómo quieres la respuesta: lista, tabla, párrafos, JSON, secciones…", "", "Bien: el formato está indicado."],
+    },
+    {
+      id: "extension", name: "Extensión", weight: 10,
+      re: /(\b\d+\s*(a \d+\s*)?(palabras|frases|oraciones|parrafos|lineas|puntos|caracteres|ideas|ejemplos|opciones|pasos|minutos|paginas|diapositivas|words|items)\b)|\b(breve|corto|corta|conciso|concisa|extenso|extensa|maximo|minimo|como mucho|no mas de|short|brief)\b/,
+      eval(t) { return this.re.test(t) ? 1 : 0; },
+      tips: ["Fija una extensión orientativa: «unas 150 palabras», «5 viñetas».", "", "Bien: la extensión está acotada."],
+    },
+    {
+      id: "ejemplos", name: "Ejemplos o referencias", weight: 10,
+      re: /\b(por ejemplo|ejemplos?|como este|similar a|al estilo de|referencia|for example)\b|e\.g\.|```|"""|<\w+>/,
+      eval(t) { return this.re.test(t) ? 1 : 0; },
+      tips: ["Incluye un ejemplo del resultado que te gusta o una referencia de estilo.", "", "Bien: hay ejemplos o material de referencia."],
+    },
+    {
+      id: "restricciones", name: "Tono y restricciones", weight: 10,
+      re: /\b(tono|estilo|formal|informal|cercano|cercana|profesional|amigable|tecnico|tecnica|divertido|evita|no uses|no incluyas|sin usar|solo|unicamente|debe|debes|obligatorio|limite|restriccion|idioma|en espanol|en ingles|tone|avoid|must)\b/,
+      eval(t) { return this.re.test(t) ? 1 : 0; },
+      tips: ["Indica tono, estilo y límites (qué debe incluir o dejar fuera).", "", "Bien: tono y límites definidos."],
+    },
+  ];
+
+  const VAGUE = ["algo", "cosas", "cosa", "etc", "lo que sea", "interesante", "que quede bien", "bonito", "chulo", "un poco", "de alguna forma", "de alguna manera", "lo mejor posible", "gancho", "whatever", "stuff", "things", "nice"];
+
+  function analyze(text) {
+    const t = norm(text);
+    const words = countWords(text);
+    const results = CRITERIA.map((c) => {
+      const v = words === 0 ? 0 : c.eval(t, words);
+      const status = v >= 1 ? "ok" : v > 0 ? "partial" : "missing";
+      const tip = status === "ok" ? c.tips[2] : status === "partial" && c.tips[1] ? c.tips[1] : c.tips[0];
+      return { id: c.id, name: c.name, weight: c.weight, value: v, status, tip };
+    });
+    const vague = VAGUE.filter((v) => new RegExp("(^|[^a-z])" + v.replace(/ /g, "\\s+") + "([^a-z]|$)").test(t));
+    let score = results.reduce((s, r) => s + r.weight * r.value, 0);
+    score -= Math.min(12, vague.length * 3);
+    if (words > 0 && words < 8) score -= 5;
+    score = Math.max(0, Math.min(100, Math.round(score)));
+    const needsDelims = text.length > 600 && !/```|"""|<\w+>/.test(text);
+    return { score, words, results, vague, needsDelims };
+  }
+
+  function levelOf(score) {
+    if (score < 40) return { label: "Débil", color: "var(--bad)", hint: "Faltan piezas básicas; el modelo tendrá que adivinar mucho." };
+    if (score < 65) return { label: "Mejorable", color: "var(--warn)", hint: "Se entiende la idea, pero la respuesta será genérica." };
+    if (score < 85) return { label: "Sólido", color: "var(--accent)", hint: "Buena base; unos detalles más lo dejan redondo." };
+    return { label: "Excelente", color: "var(--ok)", hint: "Claro, completo y bien acotado." };
+  }
+
+  const CHIP = { ok: "Presente", partial: "Parcial", missing: "Falta" };
+
+  function renderDiagnosis(a) {
+    const lvl = levelOf(a.score);
+    els.scoreNum.firstChild.nodeValue = String(a.score);
+    els.scoreLabel.textContent = a.words ? lvl.label : "—";
+    els.scoreLabel.style.color = a.words ? lvl.color : "";
+    els.scoreHint.textContent = a.words ? lvl.hint : "Escribe un prompt para analizarlo.";
+    els.meter.style.setProperty("--level", lvl.color);
+    const on = Math.round(a.score / 5);
+    [...els.meter.children].forEach((seg, i) => seg.classList.toggle("on", i < on));
+
+    els.checks.replaceChildren(...a.results.map((r) => {
+      const li = document.createElement("li");
+      const chip = document.createElement("span");
+      chip.className = "chip " + r.status;
+      chip.textContent = CHIP[r.status];
+      const name = document.createElement("div");
+      name.className = "check-name";
+      name.append(r.name + " ");
+      const w = document.createElement("span");
+      w.className = "w";
+      w.textContent = `· ${Math.round(r.weight * r.value)}/${r.weight}`;
+      name.append(w);
+      const tip = document.createElement("div");
+      tip.className = "check-tip";
+      tip.textContent = r.tip;
+      li.append(chip, name, tip);
+      return li;
+    }));
+    if (a.needsDelims) {
+      const li = document.createElement("li");
+      const chip = document.createElement("span");
+      chip.className = "chip partial";
+      chip.textContent = "Consejo";
+      const name = document.createElement("div");
+      name.className = "check-name";
+      name.textContent = "Datos delimitados";
+      const tip = document.createElement("div");
+      tip.className = "check-tip";
+      tip.textContent = "El prompt es largo: separa el texto pegado con etiquetas como <documento>…</documento>.";
+      li.append(chip, name, tip);
+      els.checks.append(li);
+    }
+
+    els.vague.hidden = a.vague.length === 0;
+    if (a.vague.length) {
+      const label = document.createElement("span");
+      label.textContent = "Palabras vagas:";
+      els.vague.replaceChildren(label, ...a.vague.map((v) => {
+        const m = document.createElement("mark");
+        m.textContent = v;
+        return m;
+      }));
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  // Plantilla estructurada (sin IA)
+  // ---------------------------------------------------------------------------
+  const ROLES = {
+    general: "un experto en el tema",
+    redaccion: "un redactor profesional especializado en [sector]",
+    codigo: "un desarrollador senior con experiencia en [lenguaje o framework]",
+    analisis: "un analista de datos riguroso",
+    resumen: "un editor experto en síntesis",
+    ideas: "un estratega creativo",
+    educacion: "un profesor con experiencia explicando a [nivel]",
+  };
+  const FORMATS = {
+    general: "Responde con un título breve y párrafos cortos.",
+    redaccion: "Entrega el texto final listo para usar, con título o asunto.",
+    codigo: "Entrega el código en un bloque, seguido de una explicación breve de las decisiones clave.",
+    analisis: "Empieza con las conclusiones principales en 3 viñetas y luego detalla el análisis por secciones.",
+    resumen: "Resume en viñetas, empezando por la idea más importante.",
+    ideas: "Propón las ideas en una lista numerada; cada una con un nombre y una frase que la explique.",
+    educacion: "Explica paso a paso, con un ejemplo concreto y una comprobación final de comprensión.",
+  };
+  const LENGTHS = {
+    general: "unas 200 palabras", redaccion: "unas 150-200 palabras", codigo: "lo necesario, sin código de relleno",
+    analisis: "máximo 400 palabras", resumen: "máximo 5 viñetas", ideas: "10 ideas", educacion: "unas 300 palabras",
+  };
+
+  function buildTemplate(text, a, type, detail) {
+    const has = Object.fromEntries(a.results.map((r) => [r.id, r.status === "ok"]));
+    const long = detail === "detallado";
+    const parts = [];
+    const added = [];
+    if (!has.rol) { parts.push(`Actúa como ${ROLES[type]}.`); added.push("Rol: da al modelo una perspectiva experta desde la que responder."); }
+    if (!has.contexto) {
+      parts.push("## Contexto\n[Explica la situación: quién eres, qué tienes ya y para qué usarás el resultado.]");
+      added.push("Contexto: el porqué ayuda al modelo a tomar mejores decisiones.");
+    }
+    parts.push("## Tarea\n" + text.trim());
+    if (!has.audiencia) {
+      parts.push("## Audiencia\n[¿Para quién es? Describe su nivel de conocimiento y qué le importa.]");
+      added.push("Audiencia: ajusta vocabulario y profundidad al lector real.");
+    }
+    if (!has.formato || !has.extension) {
+      const lines = [];
+      if (!has.formato) lines.push(FORMATS[type]);
+      if (!has.extension) lines.push(`Extensión: ${LENGTHS[type]}.`);
+      parts.push("## Formato de respuesta\n" + lines.join("\n"));
+      added.push("Formato y extensión: evitan respuestas genéricas o demasiado largas.");
+    }
+    if (!has.restricciones) {
+      parts.push("## Tono y límites\n- Tono: [cercano / profesional / técnico…]\n- Evita: [lo que no quieres ver en la respuesta]");
+      added.push("Tono y límites: dejan claro qué entra y qué no.");
+    }
+    if (!has.ejemplos && long) {
+      parts.push("## Ejemplo de referencia\n<ejemplo>\n[Pega aquí un ejemplo del tipo de resultado que te gusta.]\n</ejemplo>");
+      added.push("Ejemplo: muestra el estilo que buscas mejor que cualquier adjetivo.");
+    }
+    if (long) {
+      parts.push("Antes de responder, revisa que cumples cada punto anterior. Si te falta información importante, hazme hasta 3 preguntas en lugar de suponer.");
+      added.push("Autorrevisión y preguntas: reduce suposiciones cuando falta información.");
+    } else {
+      parts.push("Si te falta información importante, pregúntame antes de empezar.");
+    }
+    if (!added.length) added.push("Tu prompt ya cubre las piezas principales; la plantilla solo lo ordena en secciones.");
+    return { prompt: parts.join("\n\n"), changes: added };
+  }
+
+  // ---------------------------------------------------------------------------
+  // Reescritura con Claude
+  // ---------------------------------------------------------------------------
+  const TYPE_LABEL = {
+    general: "general", redaccion: "redacción y contenido", codigo: "programación", analisis: "análisis y datos",
+    resumen: "resumen", ideas: "lluvia de ideas", educacion: "enseñanza y explicación",
+  };
+
+  function buildRequest(text, a, type, detail) {
+    const missing = a.results.filter((r) => r.status !== "ok").map((r) => r.name.toLowerCase());
+    const instructions = [
+      "Eres un especialista en ingeniería de prompts. Vas a reescribir el prompt de una persona para que un modelo de lenguaje (como Claude) le dé la mejor respuesta posible a la primera.",
+      "",
+      "Cómo reescribirlo:",
+      "- Conserva la intención, los datos y las restricciones del original. No cambies el objetivo.",
+      "- No inventes hechos concretos (nombres, cifras, productos, fechas). Donde falte información esencial, deja un marcador entre corchetes, por ejemplo [nombre del producto], para que la persona lo complete.",
+      "- Empieza por la tarea en imperativo y deja claro cómo es un buen resultado.",
+      "- Añade el contexto y el propósito (el porqué), la audiencia, el formato y la extensión de la salida cuando falten.",
+      "- Añade un rol solo si aporta una perspectiva útil.",
+      "- Formula las restricciones en positivo: di qué hacer en lugar de solo qué evitar.",
+      "- Si el prompt incluye texto o datos pegados, sepáralos con etiquetas XML descriptivas (por ejemplo <documento>…</documento>).",
+      "- Para tareas complejas, pide que el modelo trabaje por pasos o revise su respuesta antes de entregarla.",
+      detail === "detallado"
+        ? "- Estilo: detallado. Usa secciones con encabezados cortos y cubre los matices."
+        : "- Estilo: conciso. Que el prompt sea lo más breve posible sin perder claridad; no añadas secciones de relleno.",
+      "- Escribe el prompt mejorado en el mismo idioma que el original.",
+      "",
+      `Tipo de tarea: ${TYPE_LABEL[type]}.`,
+      missing.length ? `Un análisis automático detectó que al original le falta o flojea: ${missing.join(", ")}.` : "El análisis automático no detectó carencias graves; céntrate en claridad y precisión.",
+      "",
+      "Responde exactamente con esta estructura y nada fuera de ella:",
+      "<prompt_mejorado>",
+      "(el prompt reescrito, listo para copiar)",
+      "</prompt_mejorado>",
+      "<cambios>",
+      "- (de 3 a 6 viñetas breves: qué cambiaste y por qué ayuda)",
+      "</cambios>",
+      "<preguntas>",
+      "- (de 0 a 3 preguntas a la persona sobre información que falta y que mejoraría el resultado; deja la sección vacía si no hay)",
+      "</preguntas>",
+    ].join("\n");
+    const user = `<prompt_original>\n${text.trim()}\n</prompt_original>`;
+    return { instructions, user };
+  }
+
+  function getTag(text, tag) {
+    const open = text.indexOf(`<${tag}>`);
+    if (open < 0) return null;
+    const start = open + tag.length + 2;
+    const close = text.indexOf(`</${tag}>`, start);
+    return text.slice(start, close < 0 ? text.length : close).trim();
+  }
+  const bullets = (s) => (s || "").split("\n").map((l) => l.replace(/^\s*[-*•]\s*/, "").trim()).filter(Boolean);
+
+  // Backend: capacidad `sample` dentro de claude.ai, o SDK de Anthropic con clave propia fuera de él.
+  let backend = { kind: "checking" };
+
+  async function initBackend() {
+    if (window.claude && typeof window.claude.use === "function") {
+      setBackendNote("Comprobando cómo conectar con Claude…");
+      const sample = await window.claude.use("sample").catch(() => null);
+      if (sample) {
+        backend = { kind: "sample", sample };
+        setBackendNote("Se usará tu cuenta de Claude. La primera vez te pedirá permiso.");
+      } else {
+        backend = { kind: "none" };
+        setBackendNote("La reescritura con Claude no está disponible en esta vista. El diagnóstico y la plantilla siguen funcionando.");
+        els.btnClaude.disabled = true;
+      }
+    } else {
+      backend = { kind: "api" };
+      els.apiBox.hidden = false;
+      const saved = store.get(API_KEY_KEY);
+      if (saved) { els.apiKey.value = saved; els.rememberKey.checked = true; }
+      else els.apiBox.open = true;
+      setBackendNote("Para reescribir con Claude necesitas una clave de API de Anthropic (console.anthropic.com).");
+    }
+  }
+  function setBackendNote(t) { els.backendNote.textContent = t; }
+
+  async function runSample(req, { signal, onText, fresh }) {
+    try {
+      const opts = { signal, onText: ({ text }) => onText(text), modelTier: "default" };
+      if (fresh) opts.cache = false;
+      const { text, truncated } = await backend.sample(`${req.instructions}\n\n${req.user}`, opts);
+      return { text, truncated };
+    } catch (e) {
+      const map = {
+        cancelled: "Detenido.",
+        not_granted: "No se concedió permiso para usar Claude en esta página.",
+        sampling_disabled: "Claude no está disponible para esta cuenta.",
+        rate_limited: "Demasiadas peticiones o límite de uso alcanzado. Prueba de nuevo en un rato.",
+        session_expired: "Tu sesión ha caducado. Vuelve a iniciar sesión en Claude.",
+        refused: "Claude no puede reescribir este prompt. Cambia el contenido e inténtalo de nuevo.",
+        prompt_too_large: "El prompt es demasiado largo. Recórtalo e inténtalo otra vez.",
+        empty_completion: "Claude no devolvió texto. Simplifica el prompt e inténtalo otra vez.",
+      };
+      if (["not_granted", "sampling_disabled", "not_declared", "capability_disabled", "capability_removed"].includes(e?.code)) {
+        els.btnClaude.disabled = true;
+      }
+      throw { message: map[e?.code] || "Se cortó la conexión con Claude. Inténtalo de nuevo.", partial: e?.code === "refused" ? "" : e?.text, cancelled: e?.code === "cancelled" };
+    }
+  }
+
+  let sdkPromise = null;
+  async function runApi(req, { signal, onText }) {
+    const apiKey = els.apiKey.value.trim();
+    if (!apiKey) {
+      els.apiBox.open = true;
+      els.apiKey.focus();
+      throw { message: "Añade tu clave de API de Anthropic para usar Claude." };
+    }
+    if (els.rememberKey.checked) store.set(API_KEY_KEY, apiKey); else store.del(API_KEY_KEY);
+
+    sdkPromise ||= import(SDK_URL);
+    let Anthropic;
+    try { ({ default: Anthropic } = await sdkPromise); } catch {
+      sdkPromise = null;
+      throw { message: "No se pudo cargar el SDK de Anthropic. Revisa tu conexión." };
+    }
+    const client = new Anthropic({ apiKey, dangerouslyAllowBrowser: true });
+    const model = els.model.value;
+    const params = {
+      model,
+      max_tokens: 16000,
+      system: req.instructions,
+      messages: [{ role: "user", content: req.user }],
+    };
+    let stream;
+    if (model === "claude-opus-5") {
+      // Si Opus 5 rechaza la petición, la API reintenta con el modelo de respaldo recomendado.
+      stream = client.beta.messages.stream({
+        ...params, thinking: { type: "adaptive" },
+        betas: ["server-side-fallback-2026-07-01"], fallbacks: "default",
+      });
+    } else if (model === "claude-sonnet-5") {
+      stream = client.messages.stream({ ...params, thinking: { type: "adaptive" } });
+    } else {
+      stream = client.messages.stream(params);
+    }
+    signal.addEventListener("abort", () => stream.abort(), { once: true });
+    let acc = "";
+    stream.on("text", (delta) => { acc += delta; onText(acc); });
+    try {
+      const msg = await stream.finalMessage();
+      if (msg.stop_reason === "refusal") throw { message: "Claude no puede reescribir este prompt. Cambia el contenido e inténtalo de nuevo.", partial: "" };
+      return { text: acc, truncated: msg.stop_reason === "max_tokens" };
+    } catch (e) {
+      if (e && e.message && !(e instanceof Error)) throw e;
+      let message = "Error al llamar a la API. Inténtalo de nuevo.";
+      if (e instanceof Anthropic.APIUserAbortError) throw { message: "Detenido.", partial: acc, cancelled: true };
+      else if (e instanceof Anthropic.AuthenticationError) message = "La clave de API no es válida. Revísala en console.anthropic.com.";
+      else if (e instanceof Anthropic.PermissionDeniedError) message = "Tu clave no tiene permiso para usar este modelo.";
+      else if (e instanceof Anthropic.NotFoundError) message = "El modelo elegido no está disponible para tu cuenta. Prueba con otro.";
+      else if (e instanceof Anthropic.RateLimitError) message = "Límite de peticiones alcanzado. Espera un momento y vuelve a intentarlo.";
+      else if (e instanceof Anthropic.BadRequestError) message = `La API rechazó la petición: ${e.message}`;
+      else if (e instanceof Anthropic.APIConnectionError) message = "No hay conexión con la API de Anthropic. Revisa tu red.";
+      else if (e instanceof Anthropic.APIError && e.status >= 500) message = "La API de Anthropic tiene problemas ahora mismo. Inténtalo en unos minutos.";
+      throw { message, partial: acc };
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  // Estado y pantalla
+  // ---------------------------------------------------------------------------
+  const state = {
+    tab: "template",
+    template: { prompt: "", changes: [] },
+    claude: null,        // { prompt, changes, questions }
+    claudeRaw: "",
+    running: null,       // AbortController
+  };
+
+  function currentAnalysis() { return analyze(els.prompt.value); }
+
+  function renderPlaceholders(text) {
+    const frag = document.createDocumentFragment();
+    const re = /\[[^\]\n]{2,80}\]/g;
+    let last = 0, m;
+    while ((m = re.exec(text))) {
+      frag.append(text.slice(last, m.index));
+      const s = document.createElement("span");
+      s.className = "ph";
+      s.textContent = m[0];
+      frag.append(s);
+      last = m.index + m[0].length;
+    }
+    frag.append(text.slice(last));
+    return frag;
+  }
+
+  function listInto(ul, items) {
+    ul.replaceChildren(...items.map((t) => { const li = document.createElement("li"); li.textContent = t; return li; }));
+  }
+
+  function renderResult() {
+    const a = currentAnalysis();
+    els.cmpFrom.textContent = String(a.score);
+    els.tabTemplate.setAttribute("aria-selected", String(state.tab === "template"));
+    els.tabClaude.setAttribute("aria-selected", String(state.tab === "claude"));
+    els.out.classList.remove("thinking");
+
+    if (state.tab === "template") {
+      els.out.replaceChildren(renderPlaceholders(state.template.prompt || "Escribe un prompt para generar la plantilla."));
+      els.changesTitle.textContent = "Qué añade la plantilla";
+      listInto(els.changes, state.template.changes);
+      els.questionsBox.hidden = true;
+      els.cmpTo.textContent = state.template.prompt ? String(analyze(state.template.prompt).score) : "—";
+      els.btnAgain.hidden = true;
+      return;
+    }
+
+    els.changesTitle.textContent = "Qué cambió Claude";
+    els.btnAgain.hidden = !state.claude || !!state.running;
+    if (state.running && !state.claudeRaw) {
+      els.out.classList.add("thinking");
+      els.out.textContent = "Claude está pensando…";
+      listInto(els.changes, []);
+      els.questionsBox.hidden = true;
+      els.cmpTo.textContent = "—";
+      return;
+    }
+    const c = state.claude;
+    if (!c) {
+      els.out.textContent = backend.kind === "none"
+        ? "La reescritura con Claude no está disponible aquí."
+        : "Pulsa «Mejorar con Claude» para obtener una reescritura a medida.";
+      listInto(els.changes, []);
+      els.questionsBox.hidden = true;
+      els.cmpTo.textContent = "—";
+      return;
+    }
+    els.out.replaceChildren(renderPlaceholders(c.prompt));
+    listInto(els.changes, c.changes);
+    els.questionsBox.hidden = c.questions.length === 0;
+    listInto(els.questions, c.questions);
+    els.cmpTo.textContent = c.prompt && !state.running ? String(analyze(c.prompt).score) : "—";
+  }
+
+  function parseClaude(raw) {
+    const prompt = getTag(raw, "prompt_mejorado");
+    return {
+      prompt: prompt ?? raw.replace(/<\/?[a-z_]+>/g, "").trim(),
+      changes: bullets(getTag(raw, "cambios")),
+      questions: bullets(getTag(raw, "preguntas")),
+    };
+  }
+
+  function refresh({ keepClaude = true } = {}) {
+    const text = els.prompt.value;
+    const a = analyze(text);
+    els.mWords.textContent = `${a.words} palabra${a.words === 1 ? "" : "s"}`;
+    els.mChars.textContent = `${text.length} caracteres`;
+    els.mTokens.textContent = `≈ ${Math.ceil(text.length / 4)} tokens`;
+    renderDiagnosis(a);
+    state.template = text.trim()
+      ? buildTemplate(text, a, els.taskType.value, els.detail.value)
+      : { prompt: "", changes: [] };
+    if (!keepClaude) { state.claude = null; state.claudeRaw = ""; }
+    renderResult();
+  }
+
+  function setStatus(msg, isErr = false) {
+    els.status.textContent = msg;
+    els.status.classList.toggle("err", isErr);
+  }
+
+  async function improveWithClaude(fresh = false) {
+    const text = els.prompt.value;
+    if (!text.trim()) { setStatus("Escribe un prompt primero.", true); els.prompt.focus(); return; }
+    if (state.running) return;
+    const a = analyze(text);
+    const req = buildRequest(text, a, els.taskType.value, els.detail.value);
+    const ctl = new AbortController();
+    state.running = ctl;
+    state.claude = null;
+    state.claudeRaw = "";
+    state.tab = "claude";
+    els.btnClaude.disabled = true;
+    els.btnStop.hidden = false;
+    setStatus("");
+    renderResult();
+
+    const onText = (raw) => {
+      state.claudeRaw = raw;
+      state.claude = parseClaude(raw);
+      renderResult();
+    };
+    try {
+      const run = backend.kind === "sample" ? runSample : runApi;
+      const { text: raw, truncated } = await run(req, { signal: ctl.signal, onText, fresh });
+      state.claudeRaw = raw;
+      state.claude = parseClaude(raw);
+      setStatus(truncated ? "La respuesta se cortó antes de terminar. Prueba con el estilo conciso." : "Listo. Revisa los marcadores [entre corchetes] y complétalos.");
+    } catch (e) {
+      const partial = e?.partial;
+      state.claude = partial ? parseClaude(partial) : null;
+      state.claudeRaw = partial || "";
+      setStatus(e?.message || "Algo falló. Inténtalo de nuevo.", !e?.cancelled);
+    } finally {
+      state.running = null;
+      els.btnClaude.disabled = backend.kind === "none";
+      els.btnStop.hidden = true;
+      renderResult();
+    }
+  }
+
+  function currentOutput() {
+    if (state.tab === "claude") return state.claude?.prompt || "";
+    return state.template.prompt;
+  }
+
+  async function copyOutput() {
+    const text = currentOutput();
+    if (!text) { setStatus("No hay nada que copiar todavía.", true); return; }
+    try {
+      await navigator.clipboard.writeText(text);
+      setStatus("Copiado al portapapeles.");
+    } catch {
+      const range = document.createRange();
+      range.selectNodeContents(els.out);
+      const sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+      setStatus("No se pudo copiar automáticamente: el texto está seleccionado, cópialo con Ctrl+C / Cmd+C.");
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  // Eventos
+  // ---------------------------------------------------------------------------
+  els.meter.replaceChildren(...Array.from({ length: 20 }, () => document.createElement("i")));
+
+  let saveTimer;
+  els.prompt.addEventListener("input", () => {
+    els.exampleBadge.hidden = true;
+    refresh({ keepClaude: true });
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(() => store.set(DRAFT_KEY, els.prompt.value), 400);
+  });
+  els.taskType.addEventListener("change", () => refresh());
+  els.detail.addEventListener("change", () => refresh());
+  els.btnClaude.addEventListener("click", () => improveWithClaude(false));
+  els.btnAgain.addEventListener("click", () => improveWithClaude(true));
+  els.btnStop.addEventListener("click", () => state.running?.abort());
+  els.btnTemplate.addEventListener("click", () => { state.tab = "template"; setStatus(""); renderResult(); });
+  els.btnClear.addEventListener("click", () => {
+    els.prompt.value = "";
+    els.exampleBadge.hidden = true;
+    store.set(DRAFT_KEY, "");
+    setStatus("");
+    refresh({ keepClaude: false });
+    els.prompt.focus();
+  });
+  els.tabTemplate.addEventListener("click", () => { state.tab = "template"; renderResult(); });
+  els.tabClaude.addEventListener("click", () => { state.tab = "claude"; renderResult(); });
+  els.btnCopy.addEventListener("click", copyOutput);
+  els.btnUse.addEventListener("click", () => {
+    const text = currentOutput();
+    if (!text) { setStatus("No hay resultado que usar todavía.", true); return; }
+    els.prompt.value = text;
+    els.exampleBadge.hidden = true;
+    store.set(DRAFT_KEY, text);
+    refresh({ keepClaude: true });
+    setStatus("El resultado es ahora tu borrador. Completa los marcadores y vuelve a analizarlo.");
+    els.prompt.focus();
+  });
+  els.rememberKey.addEventListener("change", () => { if (!els.rememberKey.checked) store.del(API_KEY_KEY); });
+
+  // Arranque: borrador guardado o ejemplo.
+  const draft = store.get(DRAFT_KEY);
+  if (draft && draft.trim()) {
+    els.prompt.value = draft;
+  } else {
+    els.prompt.value = EXAMPLE;
+    els.exampleBadge.hidden = false;
+  }
+  refresh();
+  initBackend().then(renderResult);
+})();
+</script>
+</body>
+</html>
