@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Ideario de bolsillo</title>
+  <meta name="description" content="Anota tus ideas, acumúlalas y genera propuestas nuevas a partir de ellas.">
+  <meta name="theme-color" content="#eef1f5" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0e1219" media="(prefers-color-scheme: dark)">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Ideario">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <!-- FONTS:START -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&amp;family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&amp;family=Courier+Prime:wght@400;700&amp;display=swap">
+  <!-- FONTS:END -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<!-- APP:START -->
+<div class="app" id="app">
+  <header class="topbar">
+    <p class="brand"><span class="brand-name">Ideario</span> <span class="brand-sub">de bolsillo</span></p>
+    <p class="stamp" id="count-stamp">0 fichas</p>
+  </header>
+
+  <main class="views">
+    <section class="view" id="view-ideas" aria-label="Tus ideas">
+      <form class="composer" id="composer" autocomplete="off" novalidate>
+        <label class="composer-label" for="idea-title">Nueva idea</label>
+        <textarea class="composer-input" id="idea-title" name="title" rows="2" maxlength="280"
+          enterkeyhint="done" placeholder="Anota una idea… usa #etiquetas para agruparlas"></textarea>
+        <div class="composer-note" id="composer-note" hidden>
+          <label class="sr-only" for="idea-note">Detalle de la idea</label>
+          <textarea class="composer-input composer-input-note" id="idea-note" name="note" rows="2" maxlength="1000"
+            placeholder="Detalle opcional: para quién es, cómo funcionaría…"></textarea>
+        </div>
+        <div class="composer-actions">
+          <button type="button" class="btn btn-quiet" id="toggle-note" aria-expanded="false" aria-controls="composer-note">Añadir detalle</button>
+          <button type="submit" class="btn btn-primary" id="save-idea" disabled>Guardar idea</button>
+        </div>
+      </form>
+
+      <div class="toolbar">
+        <div class="chips" id="filters" role="group" aria-label="Filtrar ideas">
+          <button type="button" class="chip" data-filter="all" aria-pressed="true">Todas <span class="chip-count" data-count="all">0</span></button>
+          <button type="button" class="chip" data-filter="mine" aria-pressed="false">Mías <span class="chip-count" data-count="mine">0</span></button>
+          <button type="button" class="chip" data-filter="chosen" aria-pressed="false">Elegidas <span class="chip-count" data-count="chosen">0</span></button>
+          <button type="button" class="chip" data-filter="fav" aria-pressed="false">Favoritas <span class="chip-count" data-count="fav">0</span></button>
+        </div>
+        <div class="search">
+          <label class="sr-only" for="search">Buscar en tus ideas</label>
+          <svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg>
+          <input type="search" id="search" placeholder="Buscar en tus ideas" enterkeyhint="search">
+        </div>
+      </div>
+
+      <p class="list-status" id="list-status" role="status">Abriendo tu ideario…</p>
+      <ol class="idea-list" id="idea-list"></ol>
+
+      <div class="empty" id="ideas-empty" hidden>
+        <h2 class="empty-title">Tu ideario está vacío</h2>
+        <ol class="empty-steps">
+          <li><strong>Anota</strong> cada idea que se te ocurra, aunque sea a medias.</li>
+          <li><strong>Acumula</strong> al menos 5: son el material del generador.</li>
+          <li><strong>Genera</strong> propuestas nuevas y guarda las que te gusten.</li>
+        </ol>
+        <button type="button" class="btn btn-secondary" data-action="load-examples">Probar con 8 ideas de ejemplo</button>
+      </div>
+    </section>
+
+    <section class="view" id="view-generate" aria-label="Generar ideas" hidden>
+      <div class="generator" id="generator"></div>
+
+      <section class="proposals" id="proposals" aria-labelledby="proposals-title" hidden>
+        <header class="section-head">
+          <h2 class="section-title" id="proposals-title">Propuestas</h2>
+          <p class="section-sub" id="proposals-sub"></p>
+        </header>
+        <ol class="proposal-list" id="proposal-list"></ol>
+        <p class="proposals-done" id="proposals-done" hidden>Has revisado todas las propuestas. Genera otra tanda cuando quieras.</p>
+      </section>
+    </section>
+
+    <section class="view" id="view-settings" aria-label="Ajustes" hidden>
+      <section class="panel" aria-labelledby="settings-ai">
+        <h2 class="panel-title" id="settings-ai">Generar con IA</h2>
+        <div id="ai-settings"></div>
+      </section>
+
+      <section class="panel" aria-labelledby="settings-data">
+        <h2 class="panel-title" id="settings-data">Tus datos</h2>
+        <p class="panel-text" id="storage-info"></p>
+        <div class="button-stack">
+          <button type="button" class="btn btn-secondary" id="export-btn">Exportar copia de seguridad</button>
+          <label class="btn btn-secondary file-button">
+            Importar copia de seguridad
+            <input type="file" id="import-file" accept="application/json,.json" class="sr-only">
+          </label>
+          <button type="button" class="btn btn-secondary" data-action="load-examples" id="examples-btn">Cargar 8 ideas de ejemplo</button>
+          <button type="button" class="btn btn-secondary" id="remove-examples-btn" hidden>Quitar las ideas de ejemplo</button>
+          <button type="button" class="btn btn-danger" id="wipe-btn">Borrar todas las ideas</button>
+        </div>
+      </section>
+
+      <section class="panel" id="install-panel" aria-labelledby="settings-install" hidden>
+        <h2 class="panel-title" id="settings-install">Instalar en el móvil</h2>
+        <p class="panel-text" id="install-status">Instálala como una app más: se abre sin navegador y funciona sin conexión.</p>
+        <button type="button" class="btn btn-primary" id="install-btn" hidden>Instalar Ideario</button>
+        <dl class="install-steps">
+          <dt>iPhone o iPad (Safari)</dt>
+          <dd>Toca Compartir y elige «Añadir a pantalla de inicio».</dd>
+          <dt>Android (Chrome)</dt>
+          <dd>Abre el menú ⋮ y elige «Instalar aplicación» o «Añadir a pantalla de inicio».</dd>
+        </dl>
+      </section>
+
+      <p class="about">Ideario de bolsillo · versión 1.0</p>
+    </section>
+  </main>
+
+  <nav class="tabbar" aria-label="Secciones">
+    <button type="button" class="tab" data-tab="ideas" aria-current="page">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5h10"/><rect x="4" y="7.5" width="16" height="12" rx="1.5"/><path d="M4 11.5h16"/></svg>
+      <span>Ideas</span>
+    </button>
+    <button type="button" class="tab" data-tab="generate">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 3.5 12.9 9l5.6 1.8-5.6 1.9L11 18.2l-1.9-5.5-5.6-1.9L9.1 9Z"/><path d="m18.5 15 .7 1.9 1.9.6-1.9.7-.7 1.9-.6-1.9-1.9-.7 1.9-.6Z"/></svg>
+      <span>Generar</span>
+      <span class="tab-badge" id="tab-badge" hidden></span>
+    </button>
+    <button type="button" class="tab" data-tab="settings">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></svg>
+      <span>Ajustes</span>
+    </button>
+  </nav>
+
+  <dialog class="sheet" id="edit-sheet" aria-labelledby="edit-heading">
+    <form class="sheet-form" id="edit-form" novalidate>
+      <header class="sheet-head">
+        <h2 class="sheet-title" id="edit-heading">Editar idea</h2>
+        <p class="sheet-meta" id="edit-meta"></p>
+      </header>
+      <label class="field-label" for="edit-title">Idea</label>
+      <textarea class="field" id="edit-title" rows="3" maxlength="280" aria-describedby="edit-error"></textarea>
+      <p class="field-error" id="edit-error" hidden>Escribe la idea antes de guardar.</p>
+      <label class="field-label" for="edit-note">Detalle</label>
+      <textarea class="field" id="edit-note" rows="4" maxlength="1000"></textarea>
+      <label class="field-label" for="edit-tags">Etiquetas</label>
+      <input class="field" id="edit-tags" type="text" placeholder="#cocina #barrio" autocapitalize="none" spellcheck="false">
+      <p class="sheet-origin" id="edit-origin" hidden></p>
+      <label class="check"><input type="checkbox" id="edit-fav"> Marcar como favorita</label>
+      <div class="sheet-actions">
+        <button type="button" class="btn btn-danger-quiet" id="edit-delete">Borrar</button>
+        <span class="spacer"></span>
+        <button type="button" class="btn btn-quiet" id="edit-cancel">Cancelar</button>
+        <button type="submit" class="btn btn-primary" id="edit-save">Guardar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden>
+    <span class="toast-text" id="toast-text"></span>
+    <button type="button" class="toast-action" id="toast-action" hidden></button>
+  </div>
+</div>
+<noscript><p class="noscript">Ideario necesita JavaScript para funcionar.</p></noscript>
+<!-- APP:END -->
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
