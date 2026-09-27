@@ -123,7 +123,14 @@ describe("puntuar", () => {
     const medio = puntuar({ ...BASE, errorMedioCents: 60 }, "intermedio");
     expect(medio.desglose.afinacion).toBeGreaterThan(0);
     expect(medio.desglose.afinacion).toBeLessThan(100);
-    expect(puntuar({ ...BASE, errorMedioCents: 200 }, "intermedio").desglose.afinacion).toBe(0);
+    expect(puntuar({ ...BASE, errorMedioCents: 200, pctNotasAfinadas: 0 }, "intermedio").desglose.afinacion).toBe(0);
+  });
+
+  it("una nota desafinada no se esconde en un error medio bajo", () => {
+    const m = { ...BASE, errorMedioCents: 13, pctNotasAfinadas: 75 };
+    const p = puntuar(m, "intermedio");
+    expect(p.desglose.afinacion).toBeLessThan(100);
+    expect(p.desglose.afinacion).toBeGreaterThan(80);
   });
 
   it("depende del nivel", () => {

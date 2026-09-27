@@ -29,6 +29,8 @@ export interface ResultadoAnalisis {
   audio?: AudioBuffer;
   /** Pistas melódicas del MIDI (solo MIDI), para que el usuario pueda cambiar de pista. */
   pistas?: InfoPista[];
+  /** Índice de la pista MIDI analizada (elegida automáticamente o por el usuario). */
+  pistaElegida?: number;
 }
 
 function nombreSinExtension(nombre: string): string {
@@ -93,6 +95,7 @@ export async function analizarArchivo(
     return {
       referencia: { id: nuevoId(), nombre, tipo: "midi", duracion: r.duracion, notas: r.notas },
       pistas: r.pistas,
+      pistaElegida: r.pistaElegida,
     };
   }
 

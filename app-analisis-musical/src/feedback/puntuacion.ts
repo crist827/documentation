@@ -20,8 +20,12 @@ export function puntuar(
   // y en afinación penalizan además el doble.
   const cobertura = Math.max(0, 1 - m.pctNotasOmitidas / 100);
 
+  // Mitad error medio, mitad % de notas cantadas que quedan afinadas: así una
+  // nota muy desafinada no queda escondida en la media.
+  const precision = cobertura > 0 ? Math.min(100, m.pctNotasAfinadas / cobertura) : 0;
   const afinacion =
-    curva(m.errorMedioCents, tol.afinado, 3 * tol.aceptable) * Math.max(0, 1 - (2 * m.pctNotasOmitidas) / 100);
+    (0.5 * curva(m.errorMedioCents, tol.afinado, 3 * tol.aceptable) + 0.5 * precision) *
+    Math.max(0, 1 - (2 * m.pctNotasOmitidas) / 100);
 
   const estabilidad =
     (0.7 * curva(m.estabilidadCents, 15, 60) + 0.3 * curva(Math.abs(m.derivaCentsPorSeg), 20, 80)) * cobertura;

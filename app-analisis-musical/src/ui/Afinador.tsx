@@ -3,7 +3,8 @@
 import { useEffect, useMemo, useRef } from "react";
 import { useMicPitch } from "../audio/useMicPitch";
 import type { LecturaPitch } from "../audio/detector";
-import { cargarAjustes, configNotas } from "../ajustes";
+import { configNotas } from "../ajustes";
+import { useApp } from "./estadoApp";
 import { nombreNota } from "../notas";
 import { conSigno } from "./formato";
 import type { Contorno } from "../tipos";
@@ -28,7 +29,8 @@ const COLOR_NIVEL: Record<Nivel, string> = {
 
 export default function Afinador() {
   const mic = useMicPitch();
-  const cfg = useMemo(() => configNotas(cargarAjustes()), []);
+  const { ajustes } = useApp();
+  const cfg = useMemo(() => configNotas(ajustes), [ajustes]);
   // El detector trabaja con La4 = 440; desplazamos si el usuario usa otro La.
   const desfase = 12 * Math.log2(cfg.la4 / 440);
 
