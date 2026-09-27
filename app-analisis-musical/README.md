@@ -11,6 +11,16 @@ npm test           # tests unitarios (Vitest)
 npm run build      # genera dist/ para publicar
 ```
 
+### Usarla en el computador sin instalar nada
+
+```bash
+npm run build:archivo   # genera dist-archivo/index.html
+```
+
+Genera **un solo archivo HTML** con todo dentro. Se abre con doble clic (Chrome, Edge o Firefox) y funciona sin servidor ni conexión. No hay que abrir el `index.html` de `dist/`, porque el navegador bloquea esa versión cuando se abre como archivo.
+
+### Publicarla
+
 El navegador solo permite usar el micrófono en `localhost` o con HTTPS. Para publicarla gratis, sube el contenido de `dist/` a GitHub Pages, Netlify o Vercel. Las rutas son relativas (`base: "./"`), así que funciona en cualquier subcarpeta.
 
 ## Usarla en el celular

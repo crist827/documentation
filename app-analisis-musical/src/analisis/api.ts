@@ -2,7 +2,9 @@
 import type { Contorno, Nota, Referencia } from "../tipos";
 import { leerMidi, type InfoPista } from "./midi";
 import { aMono, decodificarAudio } from "./decodificar";
-import type { PeticionAnalisis, RespuestaAnalisis } from "./worker";
+import { analizarMuestras, type PeticionAnalisis, type RespuestaAnalisis } from "./worker";
+// Worker incrustado en el bundle: así también funciona abriendo la app como archivo local.
+import WorkerAnalisis from "./worker?worker&inline";
 
 export type TipoDetectado = "midi" | "audio";
 
@@ -44,18 +46,43 @@ function nuevoId(): string {
     : `ref-${Date.now()}-${Math.random().toString(36).slice(2)}`;
 }
 
-/** Ejecuta el análisis en un Web Worker. */
+/**
+ * Ejecuta el análisis en un Web Worker. Si el navegador no deja crearlo (p. ej. la
+ * app abierta como archivo local, file://), lo hace en el hilo principal.
+ */
 function analizarEnWorker(
   muestras: Float32Array,
   tipo: "acapella" | "cancion",
   onProgreso?: (p: number) => void,
 ): Promise<{ contorno: Contorno; notas: Nota[] }> {
+  const enHiloPrincipal = () =>
+    // setTimeout: deja que la UI pinte el estado "analizando" antes de bloquearse
+    new Promise<{ contorno: Contorno; notas: Nota[] }>((resolve, reject) =>
+      setTimeout(() => {
+        try {
+          resolve(analizarMuestras(muestras, SR_ANALISIS, tipo, onProgreso));
+        } catch (e) {
+          reject(e instanceof Error ? e : new Error(String(e)));
+        }
+      }, 30),
+    );
+
+  if (typeof location !== "undefined" && location.protocol === "file:") return enHiloPrincipal();
+
   return new Promise((resolve, reject) => {
-    const worker = new Worker(new URL("./worker.ts", import.meta.url), { type: "module" });
+    let worker: Worker;
+    try {
+      worker = new WorkerAnalisis();
+    } catch {
+      enHiloPrincipal().then(resolve, reject);
+      return;
+    }
     const id = nuevoId();
+    let respondio = false;
     worker.onmessage = (ev: MessageEvent<RespuestaAnalisis>) => {
       const r = ev.data;
       if (r.id !== id) return;
+      respondio = true;
       if ("progreso" in r) {
         onProgreso?.(r.progreso);
         return;
@@ -66,10 +93,13 @@ function analizarEnWorker(
     };
     worker.onerror = (ev) => {
       worker.terminate();
-      reject(new Error(`Error en el analizador de audio: ${ev.message || "desconocido"}`));
+      // el worker ni siquiera arrancó: se analiza aquí (las muestras no se transfirieron)
+      if (!respondio) enHiloPrincipal().then(resolve, reject);
+      else reject(new Error(`Error en el analizador de audio: ${ev.message || "desconocido"}`));
     };
     const msg: PeticionAnalisis = { id, muestras, sampleRate: SR_ANALISIS, tipo };
-    worker.postMessage(msg, [muestras.buffer]);
+    // se copia en vez de transferir para conservar las muestras si hay que reintentar aquí
+    worker.postMessage(msg);
   });
 }
 
