@@ -5,9 +5,26 @@
 let ctx: AudioContext | null = null;
 
 export async function obtenerContexto(): Promise<AudioContext> {
+  prepararSesionAudio();
   if (!ctx || ctx.state === "closed") ctx = new AudioContext({ latencyHint: "interactive" });
-  if (ctx.state === "suspended") await ctx.resume();
+  // "interrupted" existe en Safari (llamada entrante, cambio de app)
+  if ((ctx.state as string) !== "running") await ctx.resume();
   return ctx;
+}
+
+/**
+ * iOS 16.4+: sesión de audio "play-and-record" para poder grabar y reproducir a la
+ * vez, y para que la referencia suene aunque el iPhone esté en modo silencio.
+ */
+function prepararSesionAudio(): void {
+  const sesion = (navigator as Navigator & { audioSession?: { type: string } }).audioSession;
+  if (sesion && sesion.type !== "play-and-record") {
+    try {
+      sesion.type = "play-and-record";
+    } catch {
+      // navegador sin soporte: no pasa nada
+    }
+  }
 }
 
 /** Latencia de salida conocida por el navegador (s); 0 si no la expone. */

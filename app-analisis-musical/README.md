@@ -13,6 +13,28 @@ npm run build      # genera dist/ para publicar
 
 El navegador solo permite usar el micrófono en `localhost` o con HTTPS. Para publicarla gratis, sube el contenido de `dist/` a GitHub Pages, Netlify o Vercel. Las rutas son relativas (`base: "./"`), así que funciona en cualquier subcarpeta.
 
+## Usarla en el celular
+
+La app funciona en el navegador del móvil (Chrome en Android, Safari en iPhone) y se puede **instalar como una app**. Lo único imprescindible es que esté publicada con **HTTPS**: sin HTTPS el celular no deja usar el micrófono.
+
+1. **Publicarla gratis.** Aunque el repositorio sea privado, se puede publicar gratis en [Netlify](https://app.netlify.com/start), [Vercel](https://vercel.com/new) o [Cloudflare Pages](https://pages.cloudflare.com):
+   - Entra con tu cuenta de GitHub, elige "importar proyecto" y selecciona el repositorio.
+   - Detectan Vite solos. Si te lo piden: comando de build `npm run build` y carpeta `dist`.
+   - Te dan una dirección `https://…` y cada `git push` vuelve a publicar la app.
+   - GitHub Pages no sirve aquí: con un repositorio privado solo funciona en los planes de pago de GitHub.
+2. **Abrirla en el móvil** con esa dirección y aceptar el permiso del micrófono.
+3. **Instalarla** (opcional):
+   - **Android (Chrome):** menú ⋮ → *Instalar aplicación* o *Añadir a pantalla de inicio*.
+   - **iPhone (Safari):** botón Compartir → *Añadir a pantalla de inicio*.
+
+   Instalada, se abre a pantalla completa y funciona **sin conexión**. Las canciones y sesiones se guardan en el propio teléfono.
+
+**Consejos en el móvil:**
+- Usa **auriculares con cable**: los Bluetooth añaden mucha latencia.
+- La pantalla no se apaga mientras usas el afinador o practicas.
+- En iPhone la referencia suena aunque el interruptor de silencio esté activado (iOS 16.4 o posterior).
+- Para cargar canciones, guárdalas antes en *Archivos* (iPhone) o *Descargas* (Android). Los `.mid` y `.wav` se eligen desde ahí.
+
 ## Pestañas
 
 | Pestaña | Qué hace |
@@ -49,10 +71,9 @@ src/
 
 ## Estado
 
-Implementadas las fases 0 a 4 de DISENO.md, más el modo libre con DTW, la transposición y la práctica por fragmentos de la fase 5.
+Implementadas las fases 0 a 4 de DISENO.md y de la fase 5: modo libre con DTW, transposición, práctica por fragmentos y PWA instalable que funciona sin conexión.
 
 Pendiente:
 - Melodia/Demucs dentro del navegador. Por ahora las canciones completas se analizan con YIN y parámetros más estrictos.
-- PWA offline.
 - Exportar el informe a PDF.
 - Modelos de IA (CREPE, Basic Pitch).

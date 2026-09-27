@@ -75,6 +75,9 @@ body {
   font-size: 16px;
   line-height: 1.5;
   overflow-x: hidden;
+  /* app instalada en iPhone: no pisar el notch ni la barra de inicio */
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  -webkit-tap-highlight-color: transparent;
 }
 
 h1,

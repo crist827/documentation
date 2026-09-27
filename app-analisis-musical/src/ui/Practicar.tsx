@@ -20,6 +20,7 @@ import { useApp } from "./estadoApp";
 import { fmtCents, fmtNotaConCents, fmtTiempo } from "./formato";
 import PianoRoll from "./PianoRoll";
 import { useReproduccion } from "./useReproduccion";
+import { usePantallaActiva } from "./usePantallaActiva";
 
 type Modo = OpcionesComparacion["modo"];
 type Fase = "inactivo" | "preparando" | "grabando" | "analizando";
@@ -256,6 +257,9 @@ export default function Practicar() {
       setError("No se pudo leer el audio de acompañamiento.");
     }
   };
+
+  // la pantalla no se apaga mientras practicas (antes del return anticipado: es un hook)
+  usePantallaActiva(fase === "grabando" || fase === "preparando");
 
   if (!referencia) {
     return (

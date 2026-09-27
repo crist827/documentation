@@ -7,6 +7,7 @@ import { configNotas } from "../ajustes";
 import { useApp } from "./estadoApp";
 import { nombreNota } from "../notas";
 import { conSigno } from "./formato";
+import { usePantallaActiva } from "./usePantallaActiva";
 import type { Contorno } from "../tipos";
 
 /** Tiempo que se mantiene la última nota (atenuada) tras dejar de cantar. */
@@ -29,6 +30,7 @@ const COLOR_NIVEL: Record<Nivel, string> = {
 
 export default function Afinador() {
   const mic = useMicPitch();
+  usePantallaActiva(mic.activo);
   const { ajustes } = useApp();
   const cfg = useMemo(() => configNotas(ajustes), [ajustes]);
   // El detector trabaja con La4 = 440; desplazamos si el usuario usa otro La.
